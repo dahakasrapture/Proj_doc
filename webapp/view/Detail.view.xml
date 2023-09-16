@@ -1,0 +1,97 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:semantic="sap.m.semantic" controllerName="z_tech_appeal.controller.Detail">
+
+  <semantic:DetailPage id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" title="{i18n>detailTitle}" busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}">
+
+    <semantic:content>
+      <ObjectHeader id="objectHeader" title="{DetailData>/d/MessageId}" titleActive="true" responsive="false" intro="{DetailData>/d/CreatorTx}" numberState="Success" number="{
+              parts:[{path:'DetailData>/d/AnswerDateTx'}],
+              type: 'sap.ui.model.type.Currency',
+              formatOptions: {showMeasure: false}
+            }">
+        <statuses>
+          <ObjectStatus title="Статус" text="{DetailData>/d/StatusTx}" state="{DetailData>/d/StateTx}" />
+
+          <ObjectStatus visible="{DetailData>/d/ExtFieldVis}" title="Дата продления" text="{DetailData>/d/ExtlimitTx}" state="{DetailData>/d/ExtApproveStateTx}" />
+          <ObjectStatus visible="{DetailData>/d/ExtFieldVis}" title="Обоснование" text="{DetailData>/d/ExtReason}" state="{DetailData>/d/ExtApproveStateTx}" />
+          <ObjectStatus visible="{DetailData>/d/ExtFieldVis}" title="Продлено" text="{DetailData>/d/ExtApprove}" state="{DetailData>/d/ExtApproveStateTx}" />
+        </statuses>
+
+        <ObjectAttribute title="Тип" text="{= ${DetailData>/d/Msgty} === 'R' ? ${DetailData>/d/TypeTechTx} : ${DetailData>/d/MsgtyTx} }" />
+        <ObjectAttribute visible="{DetailData>/d/CreatedVis}" title="Создано" text="{DetailData>/d/CreatedTx}" />
+        <ObjectAttribute visible="{DetailData>/d/SentVis}" title="Отправлено" text="{DetailData>/d/SentTx}" />
+        <ObjectAttribute visible="{DetailData>/d/BeAnsweredVis}" title="Дата ответа" text="{DetailData>/d/BeAnsweredTx}" />
+        <ObjectAttribute title="Комментарий к запросу" text="{DetailData>/d/FreeComment}" />
+
+      </ObjectHeader>
+      <IconTabBar id="iconTabBar" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
+        <items>
+          <IconTabFilter id="iconTabBarFilter1" icon="sap-icon://hint" iconColor="Critical" tooltip="{i18n>detailIconTabBarInfo}" design="Horizontal" text="Общая информация">
+            <Text text="Info content goes here ..." />
+          </IconTabFilter>
+          <IconTabSeparator icon="sap-icon://vertical-grip" />
+          <IconTabFilter id="iconTabBarFilter2" icon="sap-icon://attachment" iconColor="Default" count="{DetailData>/d/CountAttachment}" tooltip="{i18n>detailIconTabBarAttachments}" design="Horizontal" text="Приложения">
+            <Text text="Info content goes here ..." />
+          </IconTabFilter>
+          <IconTabSeparator icon="sap-icon://vertical-grip" visible="{= ${DetailData>/d/Msgty} !=='R'}"/>
+          <IconTabFilter id="iconTabBarFilter3" count="{DetailData>/d/CountChatMessages}" icon="sap-icon://notes" iconColor="Positive" text="Тексты по обращению" design="Horizontal" visible="{= ${DetailData>/d/Msgty} !=='R'}">
+            <Text text="People content goes here ..." />
+          </IconTabFilter>
+        </items>
+      </IconTabBar>
+    </semantic:content>
+
+    <!--
+    <semantic:sendEmailAction>
+      <semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+    </semantic:sendEmailAction>
+    -->
+
+    <semantic:positiveAction>
+      <semantic:PositiveAction text="Отправить" id="DetailPositiveAction" press="_onPositivePress" visible="{ButtonVis>/d/showPositiveButton}" />
+    </semantic:positiveAction>
+
+    <semantic:negativeAction>
+      <semantic:NegativeAction text="Отмена" id="DetailNegativeAction" press="_onNegativePress" visible="{ButtonVis>/d/showNegativeButton}" />
+    </semantic:negativeAction>
+
+    <semantic:editAction>
+      <semantic:EditAction id="idEditActionBut" press="onEditText" visible="{ButtonVis>/d/showEditButton}" />
+      <!--<semantic:EditAction id="idEditActionBut" press="onEditText" visible="true" />-->
+    </semantic:editAction>
+
+    <semantic:customFooterContent>
+      <Button text="Создать на основании" press="onCreateBasedOn" visible="{ButtonVis>/d/EditCreateBasedOn}" />
+    </semantic:customFooterContent>
+
+	  <semantic:customFooterContent>
+      <Button text="Сохранить" press="onMsgSave" visible="{ButtonVis>/d/EditSaveMsg}" />
+      <!--<Button text="Сохранить" press="onMsgSave" visible="true" />-->
+    </semantic:customFooterContent>
+
+    <semantic:customFooterContent>
+      <Button text="Завершить" press="onMsgClose" visible="{ButtonVis>/d/EditCloseMsg}" />
+    </semantic:customFooterContent>
+    <semantic:customFooterContent>
+      <Button text="Взять в работу" press="onTakeMsg2Proceed" visible="{ButtonVis>/d/EditGoProceed}" />
+    </semantic:customFooterContent>
+    <semantic:customFooterContent>
+      <Button text="Отправить ответ" press="onSendAnswerForMessage" visible="{ButtonVis>/d/EditSentResponse}" />
+    </semantic:customFooterContent>
+    <semantic:customFooterContent>
+      <Button text="Запросить продление" press="onAskForProlongation" visible="{ButtonVis>/d/EditAskProlong}" />
+    </semantic:customFooterContent>
+    <semantic:customFooterContent>
+      <Button text="Подтвердить продление" press="onApproveProlongation" visible="{ButtonVis>/d/EditApproveProlong}" />
+    </semantic:customFooterContent>
+    <semantic:customFooterContent>
+      <!--<Button text="Снять с обработки" press="onDropMsg" visible="true" />-->
+      <Button text="Снять с обработки" press="onDropMsg" visible="{ButtonVis>/d/EditDrop}" />
+    </semantic:customFooterContent>
+    <!--
+        <semantic:customFooterContent>
+              <Button text="Отправить сообщение в работу" press="onMsg2Process" visible="{detailView>/showNegativeButton}" />
+        </semantic:customFooterContent>
+    -->
+  </semantic:DetailPage>
+
+</mvc:View>

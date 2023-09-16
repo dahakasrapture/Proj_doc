@@ -1,0 +1,11 @@
+{
+    "base": "./dist",
+    "conn_server": "https://s4hananmapd01.ya.loc.yorp.ru:44301",
+    "conn_user": "AGAPOVI",
+    "conn_password": "2wsx@WSX2wsx222",
+    "abap_package": "ZTC",
+    "abap_bsp": "Z_TECH_APPEAL",
+    "abap_transport": "NMDK901283",		
+    "abap_bsp_text": "UI5 upload local objects",
+    "conn_usestrictssl": false
+}

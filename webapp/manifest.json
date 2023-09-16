@@ -1,0 +1,194 @@
+{
+    "_version": "1.9.0",
+    "sap.app": {
+        "id": "z_tech_appeal",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/ZTC_MSGTECH_GTW_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "kndCols": {
+                "uri": "model/ValueHelpKndColumnModel.json",
+                "type": "JSON"
+            },
+            "fileIdCols": {
+                "uri": "model/ValueHelpFileIdColumnModel.json",
+                "type": "JSON"
+            },
+            "Z_REGULATORY_DOCS_SRV": {
+                "uri": "/sap/opu/odata/sap/Z_REGULATORY_DOCS_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            }
+        },
+        "sourceTemplate": {
+            "id": "sap.ui.ui5-template-plugin.2masterdetail",
+            "version": "1.52.7",
+            "toolsId": "43e344df-b98d-4d17-b17b-24bafd292674"
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://detail-view",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "z_tech_appeal.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
+        },
+        "dependencies": {
+            "minUI5Version": "1.42.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "z_tech_appeal.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true
+            },
+            "documents": {
+                "dataSource": "Z_REGULATORY_DOCS_SRV",
+                "preload": true
+            },
+            "ValueHelpKndColumnModel": {
+                "type": "sap.ui.model.json.JSONModel",
+                "dataSource": "kndCols"
+            },
+            "ValueHelpFileIdColumnModel": {
+                "type": "sap.ui.model.json.JSONModel",
+                "dataSource": "fileIdCols"
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/zcss.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "z_tech_appeal.view",
+                "controlId": "idAppControl",
+                "controlAggregation": "detailPages",
+                "bypassed": {
+                    "target": [
+                        "master",
+                        "notFound"
+                    ]
+                },
+                "async": true
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "master",
+                    "target": [
+                        "object",
+                        "master"
+                    ]
+                },
+                {
+                    "pattern": "ZTC_SUPPORT_HDR_C/{objectId}",
+                    "name": "object",
+                    "target": [
+                        "master",
+                        "object"
+                    ]
+                },
+                {
+                    "pattern": "ZTC_SUPPORT_HDR_C_new/{MsgId}",
+                    "name": "newmsg",
+                    "target": [
+                        "master",
+                        "newmsg"
+                    ]
+                },
+                {
+                    "pattern": "detailNoObjectsAvailable",
+                    "name": "detailNoObjectsAvailable",
+                    "target": [
+                        "master",
+                        "detailNoObjectsAvailable"
+                    ]
+                }
+            ],
+            "targets": {
+                "master": {
+                    "viewName": "Master",
+                    "viewLevel": 1,
+                    "viewId": "master",
+                    "controlAggregation": "masterPages"
+                },
+                "object": {
+                    "viewName": "Detail",
+                    "viewId": "detail",
+                    "viewLevel": 2
+                },
+                "newmsg": {
+                    "viewName": "CreateMsg",
+                    "viewId": "createmsg",
+                    "viewLevel": 2
+                },
+                "detailObjectNotFound": {
+                    "viewName": "DetailObjectNotFound",
+                    "viewId": "detailObjectNotFound"
+                },
+                "detailNoObjectsAvailable": {
+                    "viewName": "DetailNoObjectsAvailable",
+                    "viewId": "detailNoObjectsAvailable"
+                },
+                "notFound": {
+                    "viewName": "NotFound",
+                    "viewId": "notFound"
+                }
+            }
+        }
+    },
+    "sap.platform.abap": {
+        "uri": "/sap/bc/ui5_ui5/sap/z_tech_appeal",
+        "_version": "1.1.0"
+    }
+}

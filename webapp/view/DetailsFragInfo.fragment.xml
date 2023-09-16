@@ -1,0 +1,370 @@
+<!-- TODO replace 'F' to 'F', binding -->
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  <VBox class="sapUiSmallMargin">
+    <f:Form id="FormGeneralType" editable="false" width="100%">
+      <f:title>
+        <core:Title text="Общая информация по обращению" />
+      </f:title>
+      <f:layout>
+        <f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" />
+      </f:layout>
+      <f:formContainers>
+        <f:FormContainer>
+          <f:formElements>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Балансовая единица" labelFor="BukrsTxt" />
+                <Text id="BukrsTxt" text="{DetailData>/d/BukrsWithDescription}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Ид. запроса" labelFor="RequestIdText" />
+                <Text id="RequestIdText" text="{DetailData>/d/RequestId}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Код налогового органа" labelFor="TaxInspectionCodeText" />
+                <Text id="TaxInspectionCodeText" text="{DetailData>/d/TaxInspectionCode}" />
+              </f:fields>
+            </f:FormElement>
+
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="КПП обособл. подразд." labelFor="KppText" />
+                <Text id="KppText" text="{DetailData>/d/KppOp}" />
+              </f:fields>
+            </f:FormElement>
+
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Рег. номер декларации" labelFor="RegText" />
+                <Text id="RegText" text="{DetailData>/d/RegNumber}" />
+              </f:fields>
+            </f:FormElement>
+
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Код налога" labelFor="TaxCodeText" />
+                <Text id="TaxCodeText" text="{DetailData>/d/TaxCode}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="КНД декларации" labelFor="KndText" />
+                <Text id="KndText" text="{DetailData>/d/Knd}" />
+              </f:fields>
+            </f:FormElement>
+
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Раздел декларации" labelFor="NodeItemText" />
+                <Text id="NodeItemText" text="{DetailData>/d/NodeItem}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Строка декларации" labelFor="NodeItem2Text" />
+                <Text id="NodeItem2Text" text="{DetailData>/d/NodeItem2}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Основание для запроса" labelFor="RequestBaseText" />
+                <Text id="RequestBaseText" text="{parts: [ 'DetailData>/d/RequestBase', 'DetailData>/d/RequestBaseCatalog/results'], formatter: '.formatter.formatRequestBase'}" />
+                <!--<Text id="RequestBaseText" text="{DetailData>/d/RequestBase}" />-->
+              </f:fields>
+            </f:FormElement>
+
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Суть запроса" labelFor="FreeCommentR" />
+                <Text id="FreeCommentR" text="{DetailData>/d/FreeComment}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Статус запроса" labelFor="AisStatusText" />
+                <Text id="AisStatusText" text="{parts: ['DetailData>/d/AisStatus','DetailData>/d/AisStatusCatalog/results'], formatter: '.formatter.formatAisStatus'}" />
+              </f:fields>
+            </f:FormElement>
+
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R' &amp;&amp; ${DetailData>/d/AisStatus} !== '1' }">
+              <f:fields>
+                <Label text="Причина отклонения" labelFor="RejectReasonText" />
+                <Text id="RejectReasonText" text="{DetailData>/d/RejectReason}"/>
+              </f:fields>
+            </f:FormElement>
+
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Вид документа" labelFor="NameLongText" />
+                <Text id="NameLongText" text="{DetailData>/d/DocCode} - {DetailDocData>/d/NameLong}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Наименование документа" labelFor="DocNameText" />
+                <Text id="DocNameText" text="{DetailData>/d/DocName}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Номер документа" labelFor="DocNumText" />
+                <Text id="DocNumText" text="{DetailData>/d/DocNum}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Дата документа" labelFor="DocDateText" />
+                <Text id="DocDateText" text="{path: 'DetailData>/d/DocDate', formatter: '.formatter.formatDate'}"/>
+              </f:fields>
+            </f:FormElement>
+
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Ссылка на документ" labelFor="DocUrlText" />
+                <Link id="DocUrlText" text="{DetailData>/d/DocUrl}" href="{DetailData>/d/DocUrl}" target="_blank"/>
+              </f:fields>
+            </f:FormElement>
+
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R'}">
+              <f:fields>
+                <Label text="Идентификатор документа в системе" labelFor="DocIdText" />
+                <Link id="DocIdText" text="{DetailData>/d/DocId}" />
+              </f:fields>
+            </f:FormElement>
+
+            <f:FormElement visible="{= ${DetailData>/d/TypeMVis} &amp;&amp; ${DetailData>/d/Msgty} !== 'R'  &amp;&amp; ${DetailData>/d/Msgty} !== 'F'}">
+              <f:fields>
+                <Label text="Вид налогового обязательства" labelFor="TypeTaxObligatory" />
+                <Text id="TypeTaxObligatory" text="{DetailData>/d/TypeTaxObligatoryTx}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/TypeMVis} &amp;&amp; ${DetailData>/d/Msgty} !== 'R'  &amp;&amp; ${DetailData>/d/Msgty} !== 'F'}">
+              <f:fields>
+                <Label text="Отчетная форма" labelFor="IdReportForm" />
+                <Text id="IdReportForm" text="{DetailData>/d/ReportFormTx}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/TypeTVis}  &amp;&amp; ${DetailData>/d/Msgty} !== 'R'  &amp;&amp; ${DetailData>/d/Msgty} !== 'F'}">
+              <f:fields>
+                <Label text="Тип технического обращения" labelFor="TypeTech" />
+                <Text id="TypeTech" text="{DetailData>/d/TypeTechTx}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/TypeTVis}  &amp;&amp; ${DetailData>/d/Msgty} !== 'R'  &amp;&amp; ${DetailData>/d/Msgty} !== 'F'}">
+              <f:fields>
+                <Label text="Причина обращения" labelFor="MsgReason" />
+                <Text id="MsgReason" text="{DetailData>/d/MsgReasonTx}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} !== 'R' &amp;&amp; ${DetailData>/d/Msgty} !== 'F'}">
+              <MessageStrip type="Warning" text="{DetailData>/d/LastMsgMeta}" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop" />
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} !== 'R' &amp;&amp; ${DetailData>/d/Msgty} !== 'F'}">
+              <Input value="{DetailData>/d/FreeComment}" id="ShowFreeComment" editable="false" visible="{= ${DetailData>/d/FreeCommentVis} &amp;&amp; ${DetailData>/d/Msgty} !== 'R'}" />
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} !== 'R' &amp;&amp; ${DetailData>/d/Msgty} !== 'F'}">
+              <Text wrapping="true" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop initialWidth" text="{DetailData>/d/MessageText}" />
+            </f:FormElement>
+
+            <!-- TODO Транспортный контайнер -->
+            <f:FormElement label="Балансовая единица" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <f:fields>
+                <Text text="{DetailData>/d/BukrsWithDescription}" />
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement label="Ид. документооборота" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/RequestId}" />
+              <!-- TODO название поля в одате -->
+            </f:FormElement>
+            <f:FormElement label="Код документа по КНД" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/Knd}" />
+            </f:FormElement>
+            <f:FormElement label="Период проведения НМ" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/Repyear}" />
+            </f:FormElement>
+            <f:FormElement label="Код налогового органа" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/TaxInspectionCode}" />
+            </f:FormElement>
+            <f:FormElement label="Наименование организации" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/BukrsWithDescription}" />
+              <!-- TODO название поля в одате -->
+            </f:FormElement>
+            <f:FormElement label="ИНН" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/Inn}" />
+            </f:FormElement>
+            <f:FormElement label="КПП" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/KppOp}" />
+            </f:FormElement>
+            <f:FormElement label="Основной документ" visible="{= ${DetailData>/d/Msgty} === 'F'}" width="100%">
+              <HBox width="100%" id="singTools">
+                <Link target="_blank" href="{DetailData>/d/DocUrl}" text="{DetailData>/d/FileName}" class="sapUiSmallMarginEnd" />
+                <core:Icon
+                  visible="{= !${documents>SignDoc_ac}}"
+                  tooltip="Подписать докумет"
+                  class="sapUiSmallMarginEnd"
+                  src="sap-icon://edit"
+                  press="onOpenSignMainDocument" />
+                <core:Icon
+                  visible="{= ${documents>SignDoc_ac} &amp;&amp; !${documents>VerifyDsig_ac}}"
+                  tooltip="Верифицировать подпись"
+                  class="sapUiSmallMarginEnd"
+                  src="sap-icon://accounting-document-verification"
+                  press="onVerifyMainDocument" />
+                <core:Icon
+                  visible="{= ${documents>SignDoc_ac}}"
+                  tooltip="Скачать подпись"
+                  class="sapUiSmallMarginEnd"
+                  src="sap-icon://download"
+                  press="onDownloadSignMainDocument" />
+                <core:Icon
+                  visible="{= ${documents>SignDoc_ac}}"
+                  tooltip="Удалить подпись"
+                  class="sapUiSmallMarginEnd"
+                  src="sap-icon://delete"
+                  press="onDeleteSignMainDocument" />
+              </HBox>
+            </f:FormElement>
+            <f:FormElement label="Код типа документа" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="01" />
+            </f:FormElement>
+            <f:FormElement label="Вид документа" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="Основной документ" />
+            </f:FormElement>
+            <f:FormElement label="Тип содержимого документа" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/ContType}" />
+            </f:FormElement>
+            <f:FormElement label="Ид. документа" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/FileId}" />
+            </f:FormElement>
+            <f:FormElement label="Исходное имя файла" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/FileName}" />
+            </f:FormElement>
+            <f:FormElement label="Наименование документа" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/DocName}" />
+            </f:FormElement>
+            <f:FormElement label="Размер файла" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/FileSize} Байт" />
+            </f:FormElement>
+            <f:FormElement label="Хэш-сумма" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/HashSum}"/>
+            </f:FormElement>
+            <f:FormElement label="Номер запроса на передачу файла" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/TrTicketId}"/>
+              <!-- TODO название поля в одате -->
+            </f:FormElement>
+            <f:FormElement visible="{= ${DetailData>/d/Msgty} === 'R' }">
+              <f:fields>
+                <Label text="Номер запроса на передачу файла" />
+                <Text text="{DetailData>/d/TrTicketId}"/>
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement label="Статус передачи файла" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/FileTransferStatus}"/>
+              <!-- TODO название поля в одате -->
+            </f:FormElement>
+            <f:FormElement label="Признак обработки файла" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Link target="_blank" href="{DetailData>/d/ProtFileUrl}" text="{DetailData>/d/AisProcStatus}" />
+            </f:FormElement>
+            <f:FormElement label="Рег. номер декларации" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Text text="{DetailData>/d/RegNumber}"/>
+            </f:FormElement>
+
+          </f:formElements>
+        </f:FormContainer>
+      </f:formContainers>
+    </f:Form>
+
+    <f:Form id="AuthorData" editable="false">
+      <f:title>
+        <core:Title text="Данные автора обращения" />
+      </f:title>
+      <f:layout>
+        <f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" />
+      </f:layout>
+      <f:formContainers>
+        <f:FormContainer>
+          <f:formElements>
+            <f:FormElement>
+              <f:fields>
+                <HBox>
+                  <VBox class="SpaceBetweenInputs">
+                    <Label text="ФИО Пользователя" labelFor="UserFIO" />
+                    <Input value="{DetailData>/d/UserFIO}" id="UserFIO" editable="false" />
+                  </VBox>
+                  <VBox class="SpaceBetweenInputs">
+                    <Label text="Должность" labelFor="UserPosition" />
+                    <Input value="{DetailData>/d/UserPosition}" id="UserPosition" editable="false" />
+                  </VBox>
+                </HBox>
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement>
+              <f:fields>
+                <HBox>
+                  <VBox class="SpaceBetweenInputs">
+                    <Label text="Email" labelFor="UserEmail" />
+                    <Input value="{DetailData>/d/UserEmail}" id="UserEmail" editable="false" />
+                  </VBox>
+                  <VBox class="SpaceBetweenInputs">
+                    <Label text="Телефон" labelFor="UserPhone" />
+                    <Input value="{DetailData>/d/UserPhone}" id="UserPhone" editable="false" />
+                  </VBox>
+                </HBox>
+              </f:fields>
+            </f:FormElement>
+          </f:formElements>
+        </f:FormContainer>
+      </f:formContainers>
+    </f:Form>
+
+
+    <f:Form id="ProcessorData" editable="false" visible="{DetailData>/d/ShowProcessorData}">
+      <f:title>
+        <core:Title text="Данные обработчика обращения" />
+      </f:title>
+      <f:layout>
+        <f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" />
+      </f:layout>
+      <f:formContainers>
+        <f:FormContainer>
+          <f:formElements>
+            <f:FormElement>
+              <f:fields>
+                <HBox>
+                  <VBox class="SpaceBetweenInputs">
+                    <Label text="ФИО обработчика" labelFor="ProcessorFIO" />
+                    <Input value="{DetailData>/d/ResponsFIO}" id="ResponsFIO" editable="false" />
+                  </VBox>
+                  <VBox class="SpaceBetweenInputs">
+                    <Label text="Должность" labelFor="ResponsPosition" />
+                    <Input value="{DetailData>/d/ResponsPosition}" id="ResponsPosition" editable="false" />
+                  </VBox>
+                </HBox>
+              </f:fields>
+            </f:FormElement>
+            <f:FormElement>
+              <f:fields>
+                <HBox>
+                  <VBox class="SpaceBetweenInputs">
+                    <Label text="Email" labelFor="ResponsEmail" />
+                    <Input value="{DetailData>/d/ResponsEmail}" id="ResponsEmail" editable="false" />
+                  </VBox>
+                  <VBox class="SpaceBetweenInputs">
+                    <Label text="Телефон" labelFor="ResponsPhone" />
+                    <Input value="{DetailData>/d/ResponsPhone}" id="ResponsPhone" editable="false" />
+                  </VBox>
+                </HBox>
+              </f:fields>
+            </f:FormElement>
+          </f:formElements>
+        </f:FormContainer>
+      </f:formContainers>
+    </f:Form>
+
+
+  </VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.comp.valuehelpdialog"
+	xmlns:m="sap.m"
+	xmlns:core="sap.ui.core">
+	<ValueHelpDialog
+		title="Причина отклонения"
+		ok=".onRejectReasonValueHelpOkPress"
+		cancel=".onRejectReasonValueHelpCancelPress"
+		afterClose=".onRejectReasonValueHelpAfterClose"
+		supportMultiselect="false"
+		key="RejectReason"
+		descriptionKey="Text"
+	>
+	</ValueHelpDialog>
+</core:FragmentDefinition>

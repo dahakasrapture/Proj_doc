@@ -1,0 +1,13 @@
+{
+    "cols": [
+        {
+            "label": "Код причины",
+            "template": "RejectReson",
+            "width": "5rem"
+        },
+        {
+            "label": "Текст причины",
+            "template": "Text"
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+{
+    "cols": [
+        {
+            "label": "Ид. файла",
+            "template": "FileId",
+            "width": "6rem"
+        },
+        {
+            "label": "КНД",
+            "template": "Knd",
+            "width": "5rem"
+        },
+        {
+            "label": "Год",
+            "template": "Repyear",
+            "width": "4.5rem"
+        },
+        {
+            "label": "Код налогового органа",
+            "template": "TaxInspectionCode"
+        },
+        {
+            "label": "Тип содержимого",
+            "template": "ContType"
+        },
+        {
+            "label": "Наименование документа",
+            "template": "DocName"
+        },
+        {
+            "label": "Имя файла документа",
+            "template": "FileName"
+        }
+    ]
+}

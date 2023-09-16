@@ -1,0 +1,10 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  <List id="ListChatText" headerText="Сообщения к обращению" items="{ChatText>/d/results}">
+    <items>
+      <CustomListItem>
+        <MessageStrip type="Information" showIcon="false" text="{ChatText>MsgDateTx} {ChatText>MsgTimeTx} | {ChatText>MsgFullName}" class="sapUiMediumMarginTop" />
+        <TextArea value="{ChatText>MessageTx}" rows="8" growing="true" growingMaxLines="7" width="100%" editable="false" />
+      </CustomListItem>
+    </items>
+  </List>
+</core:FragmentDefinition>

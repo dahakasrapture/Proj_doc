@@ -1,0 +1,37 @@
+[{
+  "MessageId": "MessageId1",
+  "MessageStatus": "2",
+  "MessageTx": "MessageTx 1",
+  "Msgty": "Msgty 1",
+  "MsgtyTx": "MsgtyTx 1",
+  "Creator": "Creator 1",
+  "Respons": "Respons 1",
+  "__metadata": {
+    "uri": "TechMsgShortSet('MessageId1')",
+    "type": "ZTC_MSGTECH_GTW_SRV.TechMsgShort"
+  }
+}, {
+  "MessageId": "MessageId2",
+  "MessageStatus": "1",
+  "MessageTx": "MessageTx 2",
+  "Msgty": "Msgty 2",
+  "MsgtyTx": "MsgtyTx 2",
+  "Creator": "Creator 2",
+  "Respons": "Respons 2",
+  "__metadata": {
+    "uri": "TechMsgShortSet('MessageId2')",
+    "type": "ZTC_MSGTECH_GTW_SRV.TechMsgShort"
+  }
+}, {
+  "MessageId": "MessageId3",
+  "MessageStatus": "3",
+  "MessageTx": "MessageTx 3",
+  "Msgty": "Msgty 3",
+  "MsgtyTx": "MsgtyTx 3",
+  "Creator": "Creator 3",
+  "Respons": "Respons 3",
+  "__metadata": {
+    "uri": "TechMsgShortSet('MessageId3')",
+    "type": "ZTC_MSGTECH_GTW_SRV.TechMsgShort"
+  }
+}]

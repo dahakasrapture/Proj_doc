@@ -1,0 +1,10 @@
+<mvc:View
+  class="sapUiSizeCompact"
+  controllerName="z_tech_appeal.controller.App"
+  xmlns:mvc="sap.ui.core.mvc"
+  displayBlock="true"
+  busy="{appView>/busy}"
+  busyIndicatorDelay="{appView>/delay}"
+  xmlns="sap.m">
+  <SplitApp class="sapUiSizeCompact" id="idAppControl" />
+</mvc:View>

@@ -1,0 +1,74 @@
+<core:FragmentDefinition
+  xmlns:l="sap.ui.layout"
+  xmlns="sap.m"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core"
+  controllerName="z_tech_appeal.controller.Detail">
+  <UploadCollection
+        id="UploadCollectionShow"
+        uploadEnabled="false"
+        instantUpload="false"
+        maximumFileSize="10"
+        multiple="false"
+        change="onChange"
+        fileSizeExceed="onFileSizeExceed"
+        selectionChange="onSelectAttachment"
+        typeMissmatch="onTypeMissmatch"
+        uploadComplete="onUploadComplete"
+        beforeUploadStarts="onBeforeUploadStarts"
+        uploadTerminated="onUploadTerminated"
+        filenameLengthExceed="onFilenameLengthExceed"
+        items="{path: 'AttachData>/d/results'}"
+        mode="SingleSelectLeft">
+        <toolbar>
+          <OverflowToolbar>
+            <Button
+              visible="{Uploader>/sign/visible}"
+              enabled="{Uploader>/sign/enabled}"
+              icon="sap-icon://edit"
+              press="onOpenSignDialog"
+              type="Transparent" />
+            <Button
+              visible="{Uploader>/verify/visible}"
+              enabled="{Uploader>/verify/enabled}"
+              icon="sap-icon://accounting-document-verification"
+              press="onVerifyAttachment"
+              type="Transparent" />
+            <Button
+              visible="{Uploader>/download/visible}"
+              enabled="{Uploader>/download/enabled}"
+              icon="sap-icon://download"
+              press="onSignDownload"
+              type="Transparent" />
+            <ToolbarSpacer />
+            <UploadCollectionToolbarPlaceholder />
+          </OverflowToolbar>
+        </toolbar>
+        <items>
+           <UploadCollectionItem
+              documentId="{AttachData>/documentId}"
+              fileName="{AttachData>Filename}"
+              mimeType="{AttachData>mimeType}"
+              thumbnailUrl="{AttachData>/thumbnailUrl}"
+              url="{AttachData>FileUrl}"
+              enableEdit="false"
+              enableDelete="{Uploader>/enableDelete}"
+              visibleDelete="{Uploader>/enableDelete}"
+              press="onFileNamePress"
+              deletePress="onDeleteAttachment"
+              visibleEdit="false">
+              <attributes>
+                <ObjectAttribute
+                  title="Дата загрузки"
+                  text="{path: 'AttachData>FilenameDateLoad', formatter: '.formatter.formatDate'}"
+                  active="true" />
+              </attributes>
+              <statuses>
+                <ObjectStatus title="Код типа документа" text="{path: 'AttachData>AisDocType'}" />
+                <ObjectStatus title="Тип содержимого" text="{path: 'AttachData>AisContType'}" />
+                <ObjectStatus title="Наименование" text="{path: 'AttachData>AisDocName'}" />
+              </statuses>
+           </UploadCollectionItem>
+        </items>
+      </UploadCollection>
+</core:FragmentDefinition>

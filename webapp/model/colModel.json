@@ -1,0 +1,16 @@
+{
+	"cols": [
+		{
+			"label": "Код",
+			"template": "Code"
+		},
+		{
+			"label": "Наименование",
+			"template": "NameLong"
+		},
+		{
+			"label": "КНД",
+			"template": "Knd"
+		}
+	]
+}

@@ -1,0 +1,334 @@
+<!-- TODO replace 'F' to 'F', binding -->
+<core:FragmentDefinition 
+    xmlns:l="sap.ui.layout" 
+    xmlns:controls="z_tech_appeal.controls" 
+    xmlns="sap.m" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core" 
+    xmlns:u="sap.ui.unified"
+    controllerName="z_tech_appeal.controller.DetailEdit" 
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+  <VBox class="sapUiSmallMargin">
+    <f:Form id="FormEditInfo" editable="true">
+      <f:title visible="{= ${DetailData>/d/Msgty} !== 'R'}">
+        <core:Title text="Добавление комментария" />
+      </f:title>
+      <f:title visible="{= ${DetailData>/d/Msgty} === 'R'}">
+        <core:Title text="Редактирование запроса" />
+      </f:title>
+      <f:layout>
+        <f:ResponsiveGridLayout />
+      </f:layout>
+      <f:formContainers>
+        <f:FormContainer>
+          <f:formElements>
+            <f:FormElement>
+              <TextArea id="TextEditBlock" value="{DetailData>/d/MessageTextNew}" editable="true" rows="5" visible="{= ${DetailData>/d/Msgty} !== 'R' &amp;&amp; ${DetailData>/d/Msgty} !== 'F'}"/>
+            </f:FormElement>
+            <f:FormElement>
+              <Input id="EditFreeComment" value="{DetailData>/d/FreeComment}" editable="true" visible="{= ${DetailData>/d/FreeCommentEditVis} &amp;&amp; ${DetailData>/d/Msgty} !== 'R' &amp;&amp; ${DetailData>/d/Msgty} !== 'F'}" />
+            </f:FormElement>
+
+            <f:FormElement>
+            	<f:fields>
+                	<Label 
+                    text="ИНН Контрагента" labelFor="EditCounterPartyInn64" 
+                    visible="{= ${DetailData>/d/Msgty} === 'R' &amp;&amp; ${DetailData>/d/TypeTech} === '64' }" />
+                	<Input 
+                    id="EditCounterPartyInn64" value="{DetailData>/d/CounterpartyINN}" editable="false" 
+                    visible="{= ${DetailData>/d/Msgty} === 'R' &amp;&amp; ${DetailData>/d/TypeTech} === '64' }" 
+                    maxLength="500"/>
+            	</f:fields>
+            </f:FormElement>
+            <f:FormElement>
+            	<f:fields>
+                	<Label 
+                    text="КПП Контрагента" labelFor="EditCounterPartyKpp64" 
+                    visible="{= ${DetailData>/d/Msgty} === 'R' &amp;&amp; ${DetailData>/d/TypeTech} === '64' }" />
+                	<Input 
+                    id="EditCounterPartyKpp64" value="{DetailData>/d/CounterpartyKPP}" editable="false" 
+                    visible="{= ${DetailData>/d/Msgty} === 'R' &amp;&amp; ${DetailData>/d/TypeTech} === '64' }" 
+                    maxLength="500"/>
+            	</f:fields>
+            </f:FormElement>
+
+            <f:FormElement>
+            	<f:fields>
+                	<Label 
+                    text="Регистрационный номер контрагента в стране регистрации" labelFor="EditCounterPartyInn65" 
+                    visible="{= ${DetailData>/d/Msgty} === 'R' &amp;&amp; ${DetailData>/d/TypeTech} === '65' }" />
+                  <Input 
+                    id="EditCounterPartyInn65" value="{DetailData>/d/CounterpartyFRegnumber}" editable="false" 
+                    visible="{= ${DetailData>/d/Msgty} === 'R' &amp;&amp; ${DetailData>/d/TypeTech} === '65' }" 
+                    maxLength="500"/>
+            	</f:fields>
+            </f:FormElement>
+            <f:FormElement>
+            	<f:fields>
+                	<Label 
+                    text="Код страны регистрации контрагента-нерезидента" labelFor="EditCounterPartyKpp65" 
+                    visible="{= ${DetailData>/d/Msgty} === 'R' &amp;&amp; ${DetailData>/d/TypeTech} === '65' }" />
+                  <Input 
+                    id="EditCounterPartyKpp65" value="{DetailData>/d/CounterpartyCountryCode}" editable="false" 
+                    visible="{= ${DetailData>/d/Msgty} === 'R' &amp;&amp; ${DetailData>/d/TypeTech} === '65' }" 
+                    maxLength="500"/>
+            	</f:fields>
+            </f:FormElement>
+
+            <f:FormElement>
+            	<f:fields>
+                	<Label text="Статус запроса" labelFor="EditAisStatus" required="true" visible="{= ${DetailData>/d/Msgty} === 'R'}" />
+                	<Select id="EditAisStatus" items="{/AisStatusCatalogSet}" change="onSelectTypeChange" selectedKey="{DetailData>/d/AisStatus}" visible="{= ${DetailData>/d/Msgty} === 'R'}">
+                      <items>
+                        <core:ListItem xmlns:core="sap.ui.core" text="{Text}" key="{Code}" />
+                      </items>
+                    </Select>
+            	</f:fields>
+            </f:FormElement>
+            <f:FormElement>
+	        	<f:fields>
+	            	<Label id="EditRejectReasonLbl" text="Причина отклонения" labelFor="EditRejectReason" required="true" visible="{= ${DetailData>/d/Msgty} === 'R'}" />
+	            	<Input 
+                  id="EditRejectReason" 
+                  value="{DetailData>/d/RejectReason}" 
+                  showValueHelp="true"
+                  valueHelpOnly="true"
+                  valueHelpRequest=".onValueHelpRejectReason"
+                  editable="true" 
+                  visible="{= ${DetailData>/d/Msgty} === 'R'}" 
+                  maxLength="250">
+                </Input>  
+	        	</f:fields>
+            </f:FormElement>
+            <f:FormElement>
+            	<f:fields>
+                	<Label text="Вид документа" labelFor="EditDocCode" required="{= ${DetailData>/d/AisStatus} !== '2' }" visible="{= ${DetailData>/d/Msgty} === 'R'}" />
+                	<!--<Input id="EditDocCode" value="{DetailData>/d/DocCode}" editable="true" visible="{= ${DetailData>/d/Msgty} === 'R'}" />-->
+                  <Input
+                    id="EditDocCode"
+                    app:valueCode="{DetailData>/d/DocCode}"
+                    value="{DetailData>/d/DocCode} - {DetailDocData>/d/NameLong}"
+                    showValueHelp="true"
+                    valueHelpOnly="true"
+                    valueHelpRequest=".onValueHelpRequested"
+                    editable="{= ${DetailData>/d/TypeTech} === '62' || ${DetailData>/d/AisStatus} === '2'}"
+                    visible="{= ${DetailData>/d/Msgty} === 'R'}">
+                  </Input>					
+                  <Button 
+                    id="ClearButton" 
+                    text="Clear" 
+                    press="onClearField" 
+                    type="Reject" 
+                    enabled = "{= ${DetailData>/d/TypeTech} === '62' || ${DetailData>/d/AisStatus} === '2'}"
+                    visible="{= ${DetailData>/d/Msgty} === 'R'}">
+                    <layoutData>
+										  <l:GridData span="XL1 L1 M1 S1" />
+									  </layoutData>
+                  </Button>
+            	</f:fields>
+            </f:FormElement>
+            <f:FormElement>
+            	<f:fields>
+                	<Label text="Наименование документа" labelFor="EditDocName" required="{= ${DetailData>/d/AisStatus} !== '2' }" visible="{= ${DetailData>/d/Msgty} === 'R'}" />
+                	<Input id="EditDocName" value="{DetailData>/d/DocName}" editable="true" visible="{= ${DetailData>/d/Msgty} === 'R'}" maxLength="500"/>
+            	</f:fields>
+            </f:FormElement>
+            <f:FormElement>
+            	<f:fields>
+                	<Label text="Номер документа" labelFor="EditDocNum" visible="{= ${DetailData>/d/Msgty} === 'R'}" />
+                	<Input id="EditDocNum" value="{DetailData>/d/DocNum}" editable="true" visible="{= ${DetailData>/d/Msgty} === 'R'}" maxLength="100"/>
+            	</f:fields>
+            </f:FormElement>
+            <f:FormElement>
+            	<f:fields>
+                	<Label text="Дата документа" labelFor="EditDocDate" required="{= ${DetailData>/d/AisStatus} !== '2' }" visible="{= ${DetailData>/d/Msgty} === 'R'}" />
+                	<DatePicker 
+                    id="EditDocDate" 
+                    value="{path: 'DetailData>/d/DocDate', formatter: '.formatter.formatDate'}" 
+                    editable="{= ${DetailData>/d/TypeTech} !== '63' || ${DetailData>/d/AisStatus} === '2' }" 
+                    visible="{= ${DetailData>/d/Msgty} === 'R'}" />
+            	</f:fields>
+            </f:FormElement>
+            <f:FormElement>
+            	<f:fields>
+                	<Label text="Ссылка на документ" labelFor="EditDocUrl" visible="{= ${DetailData>/d/Msgty} === 'R'}" />
+                	<Input id="EditDocUrl" value="{DetailData>/d/DocUrl}" change="onDocUrlChange" editable="true" visible="{= ${DetailData>/d/Msgty} === 'R'}" maxLength="1024"/>
+            	</f:fields>
+            </f:FormElement>
+            <f:FormElement>
+            	<f:fields>
+                	<Label text="Идентификатор документа в системе" required="{= ${DetailData>/d/AisStatus} !== '2' }" labelFor="EditDocId" visible="{= ${DetailData>/d/Msgty} === 'R'}" />
+                	<Input id="EditDocId" value="{DetailData>/d/DocId}" editable="{= ${DetailData>/d/TypeTech} !== '62' || ${DetailData>/d/AisStatus} === '2' }" visible="{= ${DetailData>/d/Msgty} === 'R'}" maxLength="100"/>
+            	</f:fields>
+            </f:FormElement>
+          </f:formElements>
+        </f:FormContainer>
+      </f:formContainers>
+    </f:Form>
+
+    
+<!--Table Document info-->
+
+    <Table 
+        id="TableEditInfo" 
+        visible="{= ${DetailData>/d/Msgty} === 'R'}" 
+        ariaLabelledBy="title" 
+        noDataText="Нет данных"
+        items="{path: '/TechMsgItemSet',
+        filters: [
+          { path: 'MessageId', operator: 'EQ', value1: '10000000001' }
+        ]}">
+		<infoToolbar>
+			<OverflowToolbar>
+        <ToolbarSpacer />
+        <u:FileUploader id="FileUploaderId" sameFilenameAllowed="true" iconOnly="false" buttonOnly="true" fileType="XLSX,xlsx"
+									icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="onUpload"/>
+			</OverflowToolbar>
+		</infoToolbar>
+    <columns>
+			<Column>
+				<Text text="Идентификатор документа в системе" />
+			</Column>
+			<Column>
+				<Text text="Вид документа" />
+			</Column>
+			<Column>
+				<Text text="Наименование документа" />
+			</Column>
+			<Column>
+				<Text text="Номер документа" />
+			</Column>
+			<Column>
+				<Text text="Дата документа" />
+			</Column>
+	  </columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+          <Input id="EditDocId1" value="{DocId}" editable="{= ${DetailData>/d/TypeTech} !== '62' || ${DetailData>/d/AisStatus} === '2' }" maxLength="100"/>
+        </cells>
+        <cells>  
+          <Input
+            id="EditDocCode1"
+            app:valueCode="{DocCode}"
+            value="{DetailData>/d/DocCode} - {DetailDocData>/d/NameLong}"
+            showValueHelp="true"
+            valueHelpOnly="true"
+            valueHelpRequest=".onValueHelpRequested"
+            editable="{= ${DetailData>/d/TypeTech} === '62' || ${DetailData>/d/AisStatus} === '2'}">
+          </Input>        
+        </cells>
+        <cells>   
+          <Input id="EditDocName1" value="{DocName}" editable="true" maxLength="500"/>
+        </cells>
+        <cells>   
+          <Input id="EditDocNum1" value="{DocNum}" editable="true" maxLength="100"/>
+        </cells>
+        <cells>  
+          <DatePicker 
+                    id="EditDocDate1" 
+                    value="{path: 'DocDate', formatter: '.formatter.formatDate'}" 
+                    editable="{= ${DetailData>/d/TypeTech} !== '63' || ${DetailData>/d/AisStatus} === '2' }"  />
+			  </cells>
+      </ColumnListItem>
+    </items>
+    </Table>
+
+
+
+    <f:Form id="FormEditInfo1" editable="true">
+      <f:title visible="{= ${DetailData>/d/Msgty} !== 'R'}">
+        <core:Title text="Добавление комментария" />
+      </f:title>
+      <f:title visible="{= ${DetailData>/d/Msgty} === 'R'}">
+        <core:Title text="Редактирование запроса" />
+      </f:title>
+      <f:layout>
+        <f:ResponsiveGridLayout />
+      </f:layout>
+      <f:formContainers>
+        <f:FormContainer>
+          <f:formElements>
+            <!-- TODO Транспортный контейнер -->
+            <f:FormElement label="Файл основного документа" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Input
+                width="100px"
+                maxLength="4"
+                id="FileId"
+                valueHelpOnly="true"
+                showValueHelp="true"
+                value="{
+                	path: 'DetailData>/d/FileId',
+                	events: {
+                		change: '.onFileIdBindingChange'
+                	}
+                }"
+                app:area="update"
+                suggestionItems="{
+                  path: '/FileCatalogSet',
+                  sorter: { path: 'FileId' }
+                }"
+                valueHelpRequest="onFileIdValueHelp">
+                  <core:Item text="{FileId}" key="{FileId}" />
+              </Input>
+            </f:FormElement>
+            <f:FormElement label="Код документа по КНД" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Input
+                id="Knd"
+                width="90%"
+                valueHelpOnly="true"
+                showValueHelp="true"
+                value="{
+                	path: 'DetailData>/d/Knd',
+                	events: {
+                		change: '.onKndBindingChange'
+                	}
+                }"
+                app:area="update"
+                suggestionItems="{
+                  path: '/KndCatalogSet',
+                  sorter: { path: 'Knd' }
+                }"
+                valueHelpRequest="onKndValueHelp">
+                  <core:Item text="{Knd} - {KndName}" key="{Knd}" />
+              </Input>
+            </f:FormElement>
+            <f:FormElement label="Период проведения НМ" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Input width="100px" maxLength="4" id="Repyear" value="{DetailData>/d/Repyear}" />
+            </f:FormElement>
+            <f:FormElement label="Код налогового органа" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Input width="100px" maxLength="30" id="TaxInspectionCode" value="{DetailData>/d/TaxInspectionCode}" />
+            </f:FormElement>
+            <f:FormElement label="Тип содержимого" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Input width="100px" maxLength="50" id="ContType" value="{DetailData>/d/ContType}" />
+            </f:FormElement>
+            <f:FormElement label="Наименование документа" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Input width="90%" id="DocName" value="{DetailData>/d/DocName}" />
+            </f:FormElement>
+            <f:FormElement label="Имя файла документа" visible="{= ${DetailData>/d/Msgty} === 'F'}">
+              <Input width="90%" id="FileName" value="{DetailData>/d/FileName}"/>
+            </f:FormElement>
+
+            <f:FormElement>
+              <!-- <UploadCollection id="UploadCollectionEdit" busy="false" busyIndicatorDelay="1000" maximumFilenameLength="55" multiple="false" instantUpload="false" showSeparators="None" items="{Attachments}" fileDeleted="onFileDeleted" fileRenamed="onFile+
+Renamed" uploadEnabled="true" uploadUrl="/sap/opu/odata/sap/ZTC_MSGTECH_GTW_SRV/TechMsgAttachmentSet/" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" change="onUploaCollectionChange">
+                <UploadCollectionItem documentId="{AttachmentGuid}" fileName="{FileName}" mimeType="{MimeType}" url="{url}" enableEdit="false" enableDelete="true" ></UploadCollectionItem>
+              </UploadCollection> -->
+              <controls:UploadCollection uploadDialogTitle="Введите атрибуты приложения" useExtension="{= ${DetailData>/d/Msgty} === 'F'}" id="UploadCollectionEdit" busy="false" busyIndicatorDelay="1000" maximumFilenameLength="100" multiple="false" instantUpload="false" showSeparators="None" items="{Attachments}" fileDeleted="onFileDeleted" fileRenamed="onFileRenamed" uploadEnabled="true" uploadUrl="/sap/opu/odata/sap/ZTC_MSGTECH_GTW_SRV/TechMsgAttachmentSet/" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" change="onUploaCollectionChange">
+                <controls:attributes>
+                  <controls:UploadCollectionAttribute type="Input" label="Код типа документа" name="AisDocType" required="true" />
+                  <controls:UploadCollectionAttribute type="Input" label="Тип содержимого" name="AisContType" required="true" />
+                  <controls:UploadCollectionAttribute type="Input" label="Наименование" name="AisDocName" required="true" />
+                </controls:attributes>
+                <controls:items>
+                  <UploadCollectionItem documentId="{AttachmentGuid}" fileName="{FileName}" mimeType="{MimeType}" url="{url}" enableEdit="false" enableDelete="false">
+                  </UploadCollectionItem>
+                </controls:items>
+              </controls:UploadCollection>
+            </f:FormElement>
+          </f:formElements>
+        </f:FormContainer>
+      </f:formContainers>
+    </f:Form>
+  </VBox>
+</core:FragmentDefinition>

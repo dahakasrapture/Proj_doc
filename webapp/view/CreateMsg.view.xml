@@ -1,0 +1,166 @@
+<mvc:View 
+  xmlns:core="sap.ui.core"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:semantic="sap.m.semantic"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:controls="z_tech_appeal.controls"
+  xmlns:smartField="sap.ui.comp.smartfield"
+  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+  controllerName="z_tech_appeal.controller.CreateMsg">
+  <App>
+    <pages>
+      <semantic:DetailPage title="Создание обращения" id="__page1" busy="{CreateMsgHeaderView>/busy}" busyIndicatorDelay="{CreateMsgHeaderView>/delay}">
+        <semantic:content>
+          <f:Form id="FormEditInfo" editable="true">
+            <f:title>
+              <core:Title text="Создание обращения" />
+            </f:title>
+            <f:layout>
+              <f:ResponsiveGridLayout />
+            </f:layout>
+            <f:formContainers>
+              <f:FormContainer>
+                <f:formElements>
+                  <f:FormElement label="Балансовая единица">
+                    <Select width="40%" id="ComboMessageType3" change="onSelectTypeChange3" forceSelection="true" items="{ path: 'typeBukrs>/d/results' }">
+                      <core:Item text="{typeBukrs>Butxt}" key="{typeBukrs>Bukrs}" />
+                    </Select>
+                  </f:FormElement>
+                  <f:FormElement label="Тип обращения">
+                    <Select width="40%" id="ComboMessageType" selectedKey="{CreateMsgHeaderView>/messsageType}" change="onSelectTypeChange">
+                      <items>
+                        <core:ListItem xmlns:core="sap.ui.core" text="Техническое" key="T" id="__item2" />
+                        <core:ListItem xmlns:core="sap.ui.core" text="Методологическое" key="M" id="__item3" />
+                        <core:ListItem xmlns:core="sap.ui.core" text="Документооборот" key="F" id="__item4" />
+                      </items>
+                    </Select>
+                  </f:FormElement>
+                  <f:FormElement label="Файл основного документа" visible="{= ${CreateMsgHeaderView>/messsageType} === 'F'}">
+                    <Input
+                      width="100px"
+                      maxLength="4"
+                      id="FileId"
+                      valueHelpOnly="true"
+                      showValueHelp="true"
+                      value="{CreateMsgHeaderView>/FileId}"
+                      suggestionItems="{
+                        path: '/FileCatalogSet',
+                        sorter: { path: 'FileId' }
+                      }"
+                      app:area="create"
+                      valueHelpRequest="onFileIdValueHelp">
+                        <core:Item text="{FileId}" key="{FileId}" />
+                    </Input>
+                  </f:FormElement>
+                  <f:FormElement label="Код документа по КНД" visible="{= ${CreateMsgHeaderView>/messsageType} === 'F'}">
+                    <Input
+                      id="Knd"
+                      width="90%"
+                      valueHelpOnly="true"
+                      showValueHelp="true"
+                      value="{CreateMsgHeaderView>/Knd}"
+                      suggestionItems="{
+                        path: '/KndCatalogSet',
+                        sorter: { path: 'Knd' }
+                      }"
+                      app:area="create"
+                      valueHelpRequest="onKndValueHelp">
+                        <core:Item text="{Knd} - {KndName}" key="{Knd}" />
+                    </Input>
+                  </f:FormElement>
+                  <f:FormElement label="Период проведения НМ" visible="{= ${CreateMsgHeaderView>/messsageType} === 'F'}">
+                    <Input width="100px" maxLength="4" id="Repyear" value="{CreateMsgHeaderView>/Repyear}" />
+                  </f:FormElement>
+                  <f:FormElement label="Код налогового органа" visible="{= ${CreateMsgHeaderView>/messsageType} === 'F'}">
+                    <Input width="100px" maxLength="30" id="TaxInspectionCode" value="{CreateMsgHeaderView>/TaxInspectionCode}" />
+                  </f:FormElement>
+                  <f:FormElement label="Тип содержимого" visible="{= ${CreateMsgHeaderView>/messsageType} === 'F'}">
+                    <Input width="100px" maxLength="50" id="ContType" value="{CreateMsgHeaderView>/ContType}" />
+                  </f:FormElement>
+                  <f:FormElement label="Наименование документа" visible="{= ${CreateMsgHeaderView>/messsageType} === 'F'}">
+                    <Input width="90%" id="DocName" value="{CreateMsgHeaderView>/DocName}" />
+                  </f:FormElement>
+                  <f:FormElement label="Имя файла документа" visible="{= ${CreateMsgHeaderView>/messsageType} === 'F'}">
+                    <Input width="90%" maxLength="255" id="FileName" value="{CreateMsgHeaderView>/FileName}"/>
+                  </f:FormElement>
+                  <f:FormElement id="FormTypeTech" label="Тип технического обращения" visible="{= ${CreateMsgHeaderView>/messsageType} === 'T'}">
+                    <Select width="70%" id="ComboMessageType0" change="onSelectTypeChange0" forceSelection="false" items="{ path: 'typeTECH>/d/results' }">
+                      <core:Item text="{typeTECH>TypeTechTx}" key="{typeTECH>TypeTech}" />
+                    </Select>
+                  </f:FormElement>
+                  <f:FormElement id="FormTypeTaxOblig" label="Вид налогового обязательства" visible="{= ${CreateMsgHeaderView>/messsageType} === 'M'}">
+                    <Select width="70%" id="ComboMessageType1" change="onSelectTypeChange1" forceSelection="false" items="{ path: 'nalogTAX>/d/results' }">
+                      <core:Item text="{nalogTAX>Dclname}" key="{nalogTAX>Dclcode}" />
+                    </Select>
+                  </f:FormElement>
+                  <f:FormElement id="ReportForm" label="Отчетная форма" visible="{= ${CreateMsgHeaderView>/messsageType} === 'M'}">
+                    <Select width="70%" id="ComboMessageType2" change="onSelectTypeChange2" forceSelection="false" items="{ path: 'RepListTax>/d/results' }">
+                      <core:Item text="{RepListTax>Repname}" key="{RepListTax>Repcode}" />
+                    </Select>
+                  </f:FormElement>
+                  <f:FormElement id="MsgReason" label="Причина обращения" visible="{= ${CreateMsgHeaderView>/messsageType} !== 'F'}">
+                    <Select width="90%" id="ComboMessageType4" change="onSelectTypeChange4" forceSelection="true">
+                      <items>
+                        <core:ListItem xmlns:core="sap.ui.core" text="Обращение по вопросам порядка раскрытия информации по налоговому и (или) бухгалтерскому учету" key="1" id="__item10" />
+                        <core:ListItem xmlns:core="sap.ui.core" text="Обращение по вопросам работы в информационной системе организации " key="2" id="__item11" />
+                        <core:ListItem xmlns:core="sap.ui.core" text="Обращение по вопросам порядка раскрытия информации о СВК данной организации за совершаемыми фактами хозяйственной жизни ..." key="3" id="__item12" />
+                        <core:ListItem xmlns:core="sap.ui.core" text="Обращение по прочим вопросам" key="0" id="__item13" />
+                      </items>
+                    </Select>
+                  </f:FormElement>
+                  <f:FormElement label="Свободный комментарий" visible="false">
+                    <Input width="60%" id="FreeComment" editable="true" visible="false" />
+                  </f:FormElement>
+                  <f:FormElement visible="{= ${CreateMsgHeaderView>/messsageType} !== 'F'}">
+                    <TextArea id="MsgTextArea" rows="5" />
+                  </f:FormElement>
+                  <f:FormElement>
+                    <controls:UploadCollection uploadDialogTitle="Введите атрибуты приложения" useExtension="{= ${CreateMsgHeaderView>/messsageType} === 'F'}" id="UploadCollection" busy="false" busyIndicatorDelay="1000" maximumFilenameLength="100" multiple="false" instantUpload="false" showSeparators="None" items="{Attachments}" fileDeleted="onFileDeleted" fileRenamed="onFileRenamed" uploadEnabled="true" uploadUrl="/sap/opu/odata/sap/ZTC_MSGTECH_GTW_SRV/TechMsgAttachmentSet/" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" change="onUploaCollectionChange">
+                      <controls:attributes>
+                        <controls:UploadCollectionAttribute type="Input" label="Код типа документа" name="AisDocType" required="true" />
+                        <controls:UploadCollectionAttribute type="Input" label="Тип содержимого" name="AisContType" required="true" />
+                        <controls:UploadCollectionAttribute type="Input" label="Наименование" name="AisDocName" required="true" />
+                      </controls:attributes>
+                      <controls:items>
+                        <UploadCollectionItem documentId="{AttachmentGuid}" fileName="{FileName}" mimeType="{MimeType}" url="{url}" enableEdit="false" enableDelete="false">
+                        </UploadCollectionItem>
+                      </controls:items>
+                    </controls:UploadCollection>
+                    <!-- <UploadCollection visible="{= ${CreateMsgHeaderView>/messsageType} !== 'T'}" id="UploadCollection" busy="false" busyIndicatorDelay="1000" maximumFilenameLength="100" multiple="false" instantUpload="false" showSeparators="None" items="{Attachments}" fileDeleted="onFileDeleted" fileRenamed="onFileRenamed" uploadEnabled="true" uploadUrl="/sap/opu/odata/sap/ZTC_MSGTECH_GTW_SRV/TechMsgAttachmentSet/" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" change="onUploaCollectionChange">
+                      <toolbar>
+                        <OverflowToolbar>
+                          <Title />
+                          <ToolbarSpacer />
+                          <Button
+                            type="Transparent"
+                            icon="sap-icon://add"
+                            tooltip="Add attachment"
+                            press="onUploadButtonPress" />
+                        </OverflowToolbar>
+                      </toolbar>
+                      <items>
+                        <UploadCollectionItem documentId="{AttachmentGuid}" fileName="{FileName}" mimeType="{MimeType}" url="{url}" enableEdit="false" enableDelete="false">
+                        </UploadCollectionItem>
+                      </items>
+                    </UploadCollection> -->
+                  </f:FormElement>
+                </f:formElements>
+              </f:FormContainer>
+            </f:formContainers>
+          </f:Form>
+        </semantic:content>
+        <semantic:positiveAction>
+          <semantic:PositiveAction visible="{= ${CreateMsgHeaderView>/messsageType} !== 'F'}" text="Отправить сообщение в работу" id="doSend2Process" press="_onDoSaveProcess" />
+        </semantic:positiveAction>
+        <semantic:mainAction>
+          <semantic:MainAction text="В черновик" id="doSaveDraft" press="_onDoSaveDraft" />
+        </semantic:mainAction>
+        <semantic:negativeAction>
+          <semantic:NegativeAction text="Отмена" id="CreateNegativeAction" press="onCreateCancel" />
+        </semantic:negativeAction>
+      </semantic:DetailPage>
+    </pages>
+  </App>
+</mvc:View>

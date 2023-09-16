@@ -1,0 +1,62 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  <P13nDialog showReset="true" ok="onFilterLaunch" cancel="onFilterClose" title="Поиск обращений">
+    <l:VerticalLayout class="sapUiContentPadding" width="100%">
+
+      <Label id="idLabMultiMsg" text="Тип обращения" labelFor="MultiMsgType" />
+      <MultiComboBox id="MultiMsgType" width="500px">
+        <core:Item key="T" text="Техническое" />
+        <core:Item key="M" text="Методологическое" />
+        <core:Item key="R" text="Запрос ПУД" />
+        <core:Item key="F" text="Документооборот" />
+      </MultiComboBox>
+
+
+      <Label id="idLabMultiStatus" text="Статус обращения" labelFor="MultiMsgStatus" />
+      <MultiComboBox id="MultiMsgStatus" width="500px">
+        <core:Item key="1" text="Черновик" />
+        <core:Item key="2" text="Направлено" />
+        <core:Item key="3" text="В работе" />
+        <core:Item key="4" text="Ответ направлен" />
+        <core:Item key="5" text="Просрочено" />
+        <core:Item key="6" text="Запрос на продление сроков" />
+        <core:Item key="7" text="Завершено" />
+        <core:Item key="E" text="Файл не принят" />
+      </MultiComboBox>
+
+
+      <Label text="Дата создания обращения (интервал)" labelFor="MsgCreateDate" />
+      <DateRangeSelection id="MsgCreateDate" change="handleChangeCreateDate" class="sapUiSmallMarginBottom" />
+
+      <Label text="Даты ответа (интервал)" labelFor="MsgRangeResponsDate" />
+      <DateRangeSelection id="MsgRangeResponsDate" change="handleChangeMsgRangeRespons" />
+
+
+      <Label text="Пользователь-Автор обращения" width="100%" labelFor="multiUserCreated" visible="false" />
+      <MultiInput width="40%" id="multiUserCreated" valueHelpRequest="handleValueHelp" visible="false">
+        <!--
+        suggestionItems="{
+          path: '/ProductCollection',
+          sorter: { path: 'Name' }
+        }"
+        -->
+        <core:Item key="{ProductId}" text="{Name}" />
+      </MultiInput>
+
+
+      <l:HorizontalLayout class="sapUiContentPadding">
+        <Button type="Reject" text="Закрыть и отменить поиск" press="onFilterClose">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Button>
+
+        <Button type="Accept" text="Применить фильтр" press="onFilterGo">
+          <layoutData>
+            <FlexItemData growFactor="1" />
+          </layoutData>
+        </Button>
+      </l:HorizontalLayout>
+
+    </l:VerticalLayout>
+  </P13nDialog>
+</core:FragmentDefinition>

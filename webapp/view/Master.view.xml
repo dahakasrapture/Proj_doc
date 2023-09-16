@@ -1,0 +1,73 @@
+<mvc:View 
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:core="sap.ui.core"
+  xmlns="sap.m"
+  xmlns:semantic="sap.m.semantic" 
+  controllerName="z_tech_appeal.controller.Master" 
+  id="MasterPage">
+
+  <semantic:MasterPage id="page" title="{masterView>/title}" navButtonPress="onNavBack" showNavButton="true">
+    <semantic:subHeader>
+      <Bar id="headerBar">
+        <contentMiddle>
+          <SearchField id="searchField" showRefreshButton="{= !${device>/support/touch} }" tooltip="{i18n>masterSearchTooltip}" width="100%" search="onSearch"></SearchField>
+        </contentMiddle>
+      </Bar>
+    </semantic:subHeader>
+
+    <semantic:content>
+      <PullToRefresh id="pullToRefresh" visible="{device>/support/touch}" refresh="onRefresh" />
+      <!-- For client side filtering add this to the items attribute: parameters: {operationMode: 'Client'}}" -->
+      <List id="list" busyIndicatorDelay="{masterView>/delay}" noDataText="{masterView>/noDataText}" mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" growing="true" growingScrollToLoad="true" updateFinished="onUpdateFinished" selectionChange="onSelectionChange" items="{/TechMsgShortSet}">
+        <infoToolbar>
+          <Toolbar active="true" id="filterBar" visible="{masterView>/isFilterBarVisible}" press="onOpenViewSettings">
+            <Title id="filterBarLabel" text="{masterView>/filterBarLabel}" />
+          </Toolbar>
+        </infoToolbar>
+        <items>
+          <ObjectListItem type="{= ${device>/system/phone} ? 'Active' : 'Inactive'}" press="onSelectionChange" intro="{MessageId}" title="{MessageTx}">
+            <firstStatus>
+              <ObjectStatus text="{MsgtyTx}" state="{MsgtyState}" />
+            </firstStatus>
+            <secondStatus>
+              <ObjectStatus text="{StatusTx}" state="{StateTx}" />
+            </secondStatus>
+            <attributes>
+              <ObjectAttribute text="Дата создания:" />
+              <ObjectAttribute text="{CreateDateTx}" />
+              <ObjectAttribute text="{PartyTx}" />
+            </attributes>
+
+            <!-- <markers>
+          <ObjectAttribute title="{StatusTx}">
+          </ObjectAttribute>
+            <ObjectStatus text="" state="{StateTx}"/>
+            <attributes >
+              <ObjectAttribute class="AttributeRed" text="{MsgtyTx}"/>
+            </attributes> state="Success" style="background-color:grey;"
+            <ObjectMarker type="Favorite"/>
+            <ObjectMarker type="Flagged"/>
+          </markers>
+          <markers>
+            <ObjectMarker visibility="IconAndText" type="Flagged" additionalInfo="{StatusTx}"/>
+            <ObjectMarker visibility="IconOnly" type="Favorite" additionalInfo="{StatusTx}"/>
+          </markers>
+          -->
+          </ObjectListItem>
+        </items>
+      </List>
+    </semantic:content>
+
+    <semantic:mainAction>
+
+      <semantic:MainAction text="Создать обращение" id="MsgCreateButton" press="_go2CreateDet" />
+
+    </semantic:mainAction>
+
+    <semantic:filter>
+      <semantic:FilterAction press="_go2FilterMain" />
+    </semantic:filter>
+
+  </semantic:MasterPage>
+
+</mvc:View>

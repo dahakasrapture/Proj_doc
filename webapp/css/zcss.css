@@ -1,0 +1,45 @@
+.fieldScreen {
+  margin: 10px;
+  width: 200px;
+}
+
+.labelScreen {
+
+}
+
+.SpaceBetweenInputs {
+  margin-right: 10px;
+  min-width: 250px;
+}
+
+.ChatLeft {
+  margin-right: 50px;
+  margin-left: 5px;
+}
+
+.ChatRight {
+  position: absolute;
+  right: 0px;
+  width: 300px;
+  padding: 10px;
+}
+
+.AttributeRed {
+  color: #FF5733;
+}
+
+.initialWidth {
+  width: initial !important;
+}
+
+.certList {
+  height: 100px !important;
+}
+
+.dummyView {
+  background-color: var(--sapIllus_BackgroundColor) !important;
+}
+
+.invisibility {
+  visibility: hidden;
+}

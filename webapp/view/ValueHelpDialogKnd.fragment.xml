@@ -1,0 +1,43 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.comp.valuehelpdialog"
+	xmlns:m="sap.m"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core">
+	<ValueHelpDialog
+		class="sapUiSizeCompact"
+		title="Код документа по КНД"
+		ok=".onKndValueHelpOkPress"
+		cancel=".onKndValueHelpCancelPress"
+		afterClose=".onKndValueHelpAfterClose"
+		supportMultiselect="false"
+		key="Knd"
+		descriptionKey="Knd"
+	>
+		<filterBar>
+			<fb:FilterBar advancedMode="true" search=".onKndFilterBarSearch" isRunningInValueHelpDialog="true">
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="Knd"
+						label="КНД"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="Knd" />
+						</fb:control>
+					</fb:FilterGroupItem>
+
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="KndName"
+						label="Наименование КНД"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="KndName" />
+						</fb:control>
+					</fb:FilterGroupItem>
+
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+		</filterBar>
+	</ValueHelpDialog>
+</core:FragmentDefinition>

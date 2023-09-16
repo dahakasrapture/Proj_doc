@@ -1,0 +1,132 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.comp.valuehelpdialog"
+	xmlns:m="sap.m"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core">
+	<ValueHelpDialog
+		title="Вид документа"
+		ok=".onValueHelpOkPress"
+		cancel=".onValueHelpCancelPress"
+		afterClose=".onValueHelpAfterClose"
+		supportMultiselect="false"
+		key="Code"
+		descriptionKey="NameLong"
+	>
+		<filterBar>
+			<fb:FilterBar advancedMode="true" search=".onFilterBarSearch" isRunningInValueHelpDialog="true">
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="Code"
+						label="Код документа"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="Code" />
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="Knd"
+						label="КНД"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="Knd" />
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="NameLong"
+						label="Наименование"
+						visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="NameLong" />
+						</fb:control>
+					</fb:FilterGroupItem>
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+		</filterBar>
+	</ValueHelpDialog>
+</core:FragmentDefinition>
+
+
+
+
+
+<!--<core:FragmentDefinition-->
+<!--	xmlns="sap.ui.comp.valuehelpdialog"-->
+<!--	xmlns:fb="sap.ui.comp.filterbar"-->
+<!--	xmlns:core="sap.ui.core">-->
+<!--	<ValueHelpDialog-->
+<!--		title="TITLE"-->
+<!--		ok=".onValueHelpOkPress"-->
+<!--		cancel=".onValueHelpCancelPress"-->
+<!--		afterClose=".onValueHelpAfterClose"-->
+<!--		supportMultiselect="false"-->
+<!--		key="Code"-->
+<!--		descriptionKey="NameLong">-->
+<!--		<filterBar>-->
+<!--			<fb:FilterBar advancedMode="true" search=".onFilterBarSearch">-->
+<!--				<fb:filterGroupItems>-->
+<!--					<fb:FilterGroupItem-->
+<!--						groupName="__$INTERNAL$"-->
+<!--						name="Code"-->
+<!--						label="Code"-->
+<!--						visibleInFilterBar="true">-->
+<!--						<fb:control>-->
+<!--							<m:Input name="Code" />-->
+<!--						</fb:control>-->
+<!--					</fb:FilterGroupItem>-->
+
+<!--					<fb:FilterGroupItem-->
+<!--						groupName="__$INTERNAL$"-->
+<!--						name="NameLong"-->
+<!--						label="Name"-->
+<!--						visibleInFilterBar="true">-->
+<!--						<fb:control>-->
+<!--							<m:Input name="NameLong" />-->
+<!--						</fb:control>-->
+<!--					</fb:FilterGroupItem>-->
+<!--				</fb:filterGroupItems>-->
+<!--			</fb:FilterBar>-->
+<!--		</filterBar>-->
+<!--	</ValueHelpDialog>-->
+<!--</core:FragmentDefinition>-->
+
+
+<!--<core:FragmentDefinition-->
+<!--	xmlns="sap.m"-->
+<!--	xmlns:core="sap.ui.core">-->
+<!--	<TableSelectDialog-->
+<!--		id="myDialog"-->
+<!--		title="Selectasdasd"-->
+<!--		search=".handleSearch"-->
+<!--		confirm=".onValueHelpOkPress"-->
+<!--		cancel=".onValueHelpCancelPress"-->
+<!--		items="{-->
+<!--			path : '/DocumentCodeCatalogSet',-->
+<!--			sorter : {-->
+<!--				path : 'Code',-->
+<!--				descending : false-->
+<!--			}-->
+<!--		}">-->
+<!--		<ColumnListItem vAlign="Middle">-->
+<!--			<cells>-->
+				
+<!--				<Text text="{Code}" />-->
+<!--				<Text text="{NameLong}" />-->
+<!--			</cells>-->
+<!--		</ColumnListItem>-->
+<!--		<columns>-->
+<!--			<Column width="12em">-->
+<!--				<header>-->
+<!--					<Text text="Code" />-->
+<!--				</header>-->
+<!--			</Column>-->
+<!--			<Column minScreenWidth="Tablet" demandPopin="true">-->
+<!--				<header>-->
+<!--					<Text text="NameLong" />-->
+<!--				</header>-->
+<!--			</Column>-->
+<!--		</columns>-->
+<!--	</TableSelectDialog>-->
+<!--</core:FragmentDefinition>-->

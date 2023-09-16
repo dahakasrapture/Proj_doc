@@ -1,0 +1,83 @@
+<core:FragmentDefinition
+  xmlns="sap.ui.comp.valuehelpdialog"
+  xmlns:m="sap.m"
+  xmlns:fb="sap.ui.comp.filterbar"
+  xmlns:core="sap.ui.core">
+  <ValueHelpDialog
+    class="sapUiSizeCompact"
+    title="Файл основного документа"
+    ok=".onFileIdValueHelpOkPress"
+    cancel=".onFileIdValueHelpCancelPress"
+    afterClose=".onFileIdValueHelpAfterClose"
+    supportMultiselect="false"
+    key="FileId"
+    descriptionKey="FileId"
+  >
+    <filterBar>
+      <fb:FilterBar advancedMode="true" search=".onFileIdFilterBarSearch" isRunningInValueHelpDialog="true">
+        <fb:filterGroupItems>
+          <fb:FilterGroupItem
+            groupName="__$INTERNAL$"
+            name="FileId"
+            label="Ид. файла"
+            visibleInFilterBar="true">
+            <fb:control>
+              <m:Input name="FileId" />
+            </fb:control>
+          </fb:FilterGroupItem>
+
+          <fb:FilterGroupItem
+            groupName="__$INTERNAL$"
+            name="Knd"
+            label="КНД"
+            visibleInFilterBar="true">
+            <fb:control>
+              <m:Input name="Knd" />
+            </fb:control>
+          </fb:FilterGroupItem>
+
+          <fb:FilterGroupItem
+            groupName="__$INTERNAL$"
+            name="Repyear"
+            label="Отчетный год"
+            visibleInFilterBar="true">
+            <fb:control>
+              <m:Input name="Repyear" />
+            </fb:control>
+          </fb:FilterGroupItem>
+
+          <fb:FilterGroupItem
+            groupName="__$INTERNAL$"
+            name="TaxInspectionCode"
+            label="Код налогового органа"
+            visibleInFilterBar="true">
+            <fb:control>
+              <m:Input name="TaxInspectionCode" />
+            </fb:control>
+          </fb:FilterGroupItem>
+
+          <fb:FilterGroupItem
+            groupName="__$INTERNAL$"
+            name="DocName"
+            label="Имя документа"
+            visibleInFilterBar="true">
+            <fb:control>
+              <m:Input name="DocName" />
+            </fb:control>
+          </fb:FilterGroupItem>
+
+          <fb:FilterGroupItem
+            groupName="__$INTERNAL$"
+            name="FileName"
+            label="Имя файла документа"
+            visibleInFilterBar="true">
+            <fb:control>
+              <m:Input name="FileName" />
+            </fb:control>
+          </fb:FilterGroupItem>
+
+        </fb:filterGroupItems>
+      </fb:FilterBar>
+    </filterBar>
+  </ValueHelpDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+  <P13nDialog showReset="true" ok="_onDiaOk" cancel="_onDiaCancel" title="Запрос на продление">
+
+    <form:SimpleForm title="">
+      <form:content>
+
+        <Label text="Запрашиваемая дата ответа" labelFor="sel_DateBeg" />
+        <DatePicker id="newDate" change="onNewDateChange" valueFormat="yyyyMMdd" displayFormat="long" />
+
+        <Label id="NewDataCommentLabel" class="CssClassCommentLab" text="Обоснование: " labelFor="idDescComm" />
+        <Input id="NewDataCommentInp" class="CssClassCommentInput" required="false" value="{ModelAddData>/NewDateComment}" width="500px" />
+
+      </form:content>
+    </form:SimpleForm>
+
+
+  </P13nDialog>
+</core:FragmentDefinition>

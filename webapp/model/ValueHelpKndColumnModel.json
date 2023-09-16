@@ -1,0 +1,13 @@
+{
+    "cols": [
+        {
+            "label": "КНД",
+            "template": "Knd",
+            "width": "5rem"
+        },
+        {
+            "label": "Наименование КНД",
+            "template": "KndName"
+        }
+    ]
+}
