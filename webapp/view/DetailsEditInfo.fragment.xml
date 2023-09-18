@@ -243,13 +243,14 @@
         <cells>  
           <DatePicker 
                     id="EditDocDate1" 
-                    value="{path: 'ItemsData>DocDate', formatter: '.formatter.formatDate'}" 
+                    value="{path: 'ItemsData>DocDate', formatter: '.formatter.formatDate'}"
                     editable="{= ${DetailData>/d/TypeTech} !== '63' || ${DetailData>/d/AisStatus} === '2' }"  />
 			  </cells>
       </ColumnListItem>
     </items>
     </Table>
 
+<!--value="{path: 'ItemsData>DocDate', formatter: '.formatter.formatDate'}" -->
 
 
     <f:Form id="FormEditInfo1" editable="true">
