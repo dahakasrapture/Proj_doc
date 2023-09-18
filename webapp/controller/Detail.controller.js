@@ -552,15 +552,15 @@ sap.ui.define(
         }
 
         if (typeR && !ObjMeta.NewStatus) {
-          var docDate = this.byId("EditDocDate").getDateValue();
+//          var docDate = this.byId("EditDocDate").getDateValue();
           Entry.AisStatus = this.byId("EditAisStatus").getSelectedKey();
           Entry.RejectReason = ( Entry.AisStatus === '2' || Entry.AisStatus === '3' ) ? this.byId("EditRejectReason").getValue(): "";
-          Entry.DocCode = this.byId("EditDocCode").getCustomData()[0].getValue();
-          Entry.DocName = this.byId("EditDocName").getValue();
-          Entry.DocNum = this.byId("EditDocNum").getValue();
-          Entry.DocDate = docDate == null ? null : formatter.Date2ABAP(docDate) + "T00:00:00";
+//          Entry.DocCode = this.byId("EditDocCode").getCustomData()[0].getValue();
+//          Entry.DocName = this.byId("EditDocName").getValue();
+//          Entry.DocNum = this.byId("EditDocNum").getValue();
+//          Entry.DocDate = docDate == null ? null : formatter.Date2ABAP(docDate) + "T00:00:00";
           Entry.DocUrl = this.byId("EditDocUrl").getValue();
-          Entry.DocId = this.byId("EditDocId").getValue();
+//          Entry.DocId = this.byId("EditDocId").getValue();
         }
 
         // TODO add fields to Entry which regard 'F' type
@@ -590,6 +590,38 @@ sap.ui.define(
         );
         that._RefreshModeTmp = ObjMeta.RefreshMode;
       
+        var tableItems = this.byId('TableEditInfo').getItems();
+        var itemTable = [];
+        if (tableItems.length > 0) {
+          tableItems.map((item, index) => {
+            itemTable.push({
+              MessageId: Entry.MessageId,
+              Item: index,
+              DocID: item.getCells()[0].getValue(),
+              DocCode: item.getCells()[1].getValue().substring(0,10),
+              DocName: item.getCells()[2].getValue(),
+              DocNum: item.getCells()[3].getValue(),
+              DocDate: item.getCells()[4].getDateValue() == null ? null : formatter.Date2ABAP(item.getCells()[4].getDateValue()) + "T00:00:00",
+            })
+          })
+        };
+        var EntryItem = {
+          MessageId: Entry.MessageId,
+          ToItems : [...itemTable]
+        };
+        var oDataModel = new sap.ui.model.odata.ODataModel(this.getView().getModel().sServiceUrl)
+        oDataModel.create(
+          "/TechMsgDetailSet",
+          EntryItem,
+          null,
+          function() {
+            var msg;
+          }
+        ); 
+
+
+
+
         // this.getModel("CreateMsgHeaderView").setProperty("/busy", true);
         this.oModelChange.attachRequestCompleted(
           this,
@@ -1246,7 +1278,7 @@ sap.ui.define(
     this._oValueHelpDialog.close();
   },
 
-  
+
 
   onSelectTypeChange: function(oEvent) {
     var input = this.byId("EditAisStatus");
@@ -1256,6 +1288,7 @@ sap.ui.define(
       this.byId("EditRejectReasonLbl").setVisible(visible);
     }
 
+    /*
     this.getModel("DetailData").setProperty("/d/AisStatus",input.getSelectedKey());
 
     [ 
@@ -1266,6 +1299,7 @@ sap.ui.define(
     ].forEach(function(namefield){
       this.setValidation(this.byId(namefield),false);
     }.bind(this))
+    */
   },
 
   onClearField: function(oEvent) {

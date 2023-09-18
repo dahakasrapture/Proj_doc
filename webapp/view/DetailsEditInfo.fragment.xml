@@ -100,10 +100,10 @@
                 </Input>  
 	        	</f:fields>
             </f:FormElement>
+<!--            
             <f:FormElement>
             	<f:fields>
                 	<Label text="Вид документа" labelFor="EditDocCode" required="{= ${DetailData>/d/AisStatus} !== '2' }" visible="{= ${DetailData>/d/Msgty} === 'R'}" />
-                	<!--<Input id="EditDocCode" value="{DetailData>/d/DocCode}" editable="true" visible="{= ${DetailData>/d/Msgty} === 'R'}" />-->
                   <Input
                     id="EditDocCode"
                     app:valueCode="{DetailData>/d/DocCode}"
@@ -161,6 +161,13 @@
                 	<Input id="EditDocId" value="{DetailData>/d/DocId}" editable="{= ${DetailData>/d/TypeTech} !== '62' || ${DetailData>/d/AisStatus} === '2' }" visible="{= ${DetailData>/d/Msgty} === 'R'}" maxLength="100"/>
             	</f:fields>
             </f:FormElement>
+-->           
+            <f:FormElement>
+            	<f:fields>
+                	<Label text="Ссылка на документ" labelFor="EditDocUrl" visible="{= ${DetailData>/d/Msgty} === 'R'}" />
+                	<Input id="EditDocUrl" value="{DetailData>/d/DocUrl}" change="onDocUrlChange" editable="true" visible="{= ${DetailData>/d/Msgty} === 'R'}" maxLength="1024"/>
+            	</f:fields>
+            </f:FormElement>            
           </f:formElements>
         </f:FormContainer>
       </f:formContainers>
@@ -177,10 +184,7 @@
         noDataText="Нет данных"
         mode="MultiSelect"
         alternateRowColors="true"
-        items="{path: 'ItemsData>/d/results',
-        filters: [
-          { path: 'MessageId', operator: 'EQ', value1: '10000000001' }
-        ]}">
+        items="{path: 'ItemsData>/d/results'}">
 		<infoToolbar>
 			<OverflowToolbar style="Clear">
         <Title text="Список документов"/>
@@ -217,7 +221,7 @@
 		<items>
 			<ColumnListItem>
 				<cells>
-          <Input id="EditDocId1" value="{ItemsData>DocId}" editable="{= ${DetailData>/d/TypeTech} !== '62' || ${DetailData>/d/AisStatus} === '2' }" maxLength="100"/>
+          <Input id="EditDocId1" value="{ItemsData>DocID}" editable="{= ${DetailData>/d/TypeTech} !== '62' || ${DetailData>/d/AisStatus} === '2' }" maxLength="100"/>
         </cells>
         <cells>  
           <Input
