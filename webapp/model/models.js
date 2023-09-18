@@ -19,6 +19,14 @@ sap.ui.define(
         return odataDetailData;
       },
 
+      path2ItemsData: function (MsgId) {
+        var odatapath =
+          "/sap/opu/odata/SAP/ZTC_MSGTECH_GTW_SRV/TechMsgItemSet/?$filter=(MessageId eq '" +
+          MsgId +
+          "')&$format=json";
+        return odatapath;
+      },
+
       path2DetailAttach: function (MsgId) {
         //var vMsgId = "('" + MsgId + "')";
         var odatapath =

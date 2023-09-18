@@ -167,67 +167,79 @@
     </f:Form>
 
     
-<!--Table Document info-->
+<!--Table Document info   TechMsgItemSet
+- {DetailDocData>/d/NameLong}-->
 
     <Table 
         id="TableEditInfo" 
         visible="{= ${DetailData>/d/Msgty} === 'R'}" 
         ariaLabelledBy="title" 
         noDataText="Нет данных"
-        items="{path: '/TechMsgItemSet',
+        mode="MultiSelect"
+        alternateRowColors="true"
+        items="{path: 'ItemsData>/d/results',
         filters: [
           { path: 'MessageId', operator: 'EQ', value1: '10000000001' }
         ]}">
 		<infoToolbar>
-			<OverflowToolbar>
+			<OverflowToolbar style="Clear">
+        <Title text="Список документов"/>
         <ToolbarSpacer />
+        <Button 
+                    id="ClearButton1" 
+                    text="Очистить 'Вид документа'" 
+                    press="onClearField" 
+                    type="Neutral" 
+                    enabled = "{= ${DetailData>/d/TypeTech} === '62' || ${DetailData>/d/AisStatus} === '2'}"
+                    visible="{= ${DetailData>/d/Msgty} === 'R'}">
+        </Button>
         <u:FileUploader id="FileUploaderId" sameFilenameAllowed="true" iconOnly="false" buttonOnly="true" fileType="XLSX,xlsx"
 									icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="onUpload"/>
 			</OverflowToolbar>
 		</infoToolbar>
     <columns>
-			<Column>
-				<Text text="Идентификатор документа в системе" />
+			<Column styleClass="cellBorderLeft cellBorderRight">
+        <Label text="Ид. документа в системе" required="{= ${DetailData>/d/AisStatus} !== '2' }" labelFor="EditDocId1"/>
 			</Column>
-			<Column>
-				<Text text="Вид документа" />
+			<Column styleClass="cellBorderRight">
+				<Label text="Вид документа" labelFor="EditDocCode1" required="{= ${DetailData>/d/AisStatus} !== '2' }" />
 			</Column>
-			<Column>
-				<Text text="Наименование документа" />
+			<Column styleClass="cellBorderRight">
+				<Label text="Наименование документа" labelFor="EditDocName1" required="{= ${DetailData>/d/AisStatus} !== '2' }"/>
 			</Column>
-			<Column>
-				<Text text="Номер документа" />
+			<Column styleClass="cellBorderRight">
+				<Label text="Номер документа" />
 			</Column>
-			<Column>
-				<Text text="Дата документа" />
+			<Column labelFor="EditDocDate1">
+				<Label text="Дата документа" labelFor="EditDocDate1" required="{= ${DetailData>/d/AisStatus} !== '2' }" />
 			</Column>
 	  </columns>
 		<items>
 			<ColumnListItem>
 				<cells>
-          <Input id="EditDocId1" value="{DocId}" editable="{= ${DetailData>/d/TypeTech} !== '62' || ${DetailData>/d/AisStatus} === '2' }" maxLength="100"/>
+          <Input id="EditDocId1" value="{ItemsData>DocId}" editable="{= ${DetailData>/d/TypeTech} !== '62' || ${DetailData>/d/AisStatus} === '2' }" maxLength="100"/>
         </cells>
         <cells>  
           <Input
             id="EditDocCode1"
-            app:valueCode="{DocCode}"
-            value="{DetailData>/d/DocCode} - {DetailDocData>/d/NameLong}"
+            app:valueCode="{ItemsData>DocCode}"
+            value="{ItemsData>DocCode}"
             showValueHelp="true"
             valueHelpOnly="true"
             valueHelpRequest=".onValueHelpRequested"
             editable="{= ${DetailData>/d/TypeTech} === '62' || ${DetailData>/d/AisStatus} === '2'}">
-          </Input>        
+          </Input>    
         </cells>
         <cells>   
-          <Input id="EditDocName1" value="{DocName}" editable="true" maxLength="500"/>
+          <Input id="EditDocName1" value="{ItemsData>DocName}" editable="true" maxLength="500"/>
         </cells>
         <cells>   
-          <Input id="EditDocNum1" value="{DocNum}" editable="true" maxLength="100"/>
+          <Input id="EditDocNum1" value="{ItemsData>DocNum}" editable="true" maxLength="100"/>
         </cells>
         <cells>  
           <DatePicker 
                     id="EditDocDate1" 
-                    value="{path: 'DocDate', formatter: '.formatter.formatDate'}" 
+                    value="{path: 'ItemsData>DocDate', formatter: '.formatter.formatDate'}" 
                     editable="{= ${DetailData>/d/TypeTech} !== '63' || ${DetailData>/d/AisStatus} === '2' }"  />
 			  </cells>
       </ColumnListItem>
@@ -241,7 +253,7 @@
         <core:Title text="Добавление комментария" />
       </f:title>
       <f:title visible="{= ${DetailData>/d/Msgty} === 'R'}">
-        <core:Title text="Редактирование запроса" />
+        <core:Title text="Приложения" />
       </f:title>
       <f:layout>
         <f:ResponsiveGridLayout />
