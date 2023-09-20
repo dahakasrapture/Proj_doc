@@ -197,6 +197,7 @@
                     enabled = "{= ${DetailData>/d/TypeTech} === '62' || ${DetailData>/d/AisStatus} === '2'}"
                     visible="{= ${DetailData>/d/Msgty} === 'R'}">
         </Button>
+        <Button text="Выгрузить шаблон" type="Neutral" press="onDownTempPressed" visible="{= ${DetailData>/d/Msgty} === 'R'}"/>
         <u:FileUploader 
             id="FileUploaderId" 
             buttonOnly="true"
@@ -218,19 +219,19 @@
 		</infoToolbar>
     <columns>
 			<Column styleClass="cellBorderLeft cellBorderRight">
-        <Label text="Ид. документа в системе" required="{= ${DetailData>/d/AisStatus} !== '2' }" labelFor="EditDocId1"/>
+        <Label id="labelId" text="Ид. документа в системе" required="{= ${DetailData>/d/AisStatus} !== '2' }" labelFor="EditDocId1"/>
 			</Column>
 			<Column styleClass="cellBorderRight">
-				<Label text="Вид документа" labelFor="EditDocCode1" required="{= ${DetailData>/d/AisStatus} !== '2' }" />
+				<Label id="labelCode" text="Вид документа" labelFor="EditDocCode1" required="{= ${DetailData>/d/AisStatus} !== '2' }" />
 			</Column>
 			<Column styleClass="cellBorderRight">
-				<Label text="Наименование документа" labelFor="EditDocName1" required="{= ${DetailData>/d/AisStatus} !== '2' }"/>
+				<Label id="labelName" text="Наименование документа" labelFor="EditDocName1" required="{= ${DetailData>/d/AisStatus} !== '2' }"/>
 			</Column>
 			<Column styleClass="cellBorderRight">
 				<Label text="Номер документа" />
 			</Column>
 			<Column labelFor="EditDocDate1">
-				<Label text="Дата документа" labelFor="EditDocDate1" required="{= ${DetailData>/d/AisStatus} !== '2' }" />
+				<Label id="labelDate" text="Дата документа" labelFor="EditDocDate1" required="{= ${DetailData>/d/AisStatus} !== '2' }" />
 			</Column>
 	  </columns>
 		<items>

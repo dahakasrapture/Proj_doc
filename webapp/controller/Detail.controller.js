@@ -15,6 +15,7 @@ sap.ui.define(
     "sap/ui/export/Spreadsheet",
     "z_tech_appeal/controller/Jszip",
     "z_tech_appeal/controller/Xlsx",
+    "sap/ui/export/Spreadsheet"
   ],
   function (
     BaseController,
@@ -27,7 +28,8 @@ sap.ui.define(
     SearchField,
     Filter,
     FilterOperator,
-    Fragment
+    Fragment,
+    Spreadsheet
   ) {
     "use strict";
 
@@ -674,6 +676,7 @@ sap.ui.define(
         var reject = this.byId("EditRejectReason");
         var docUrl = this.byId("EditDocUrl");
         var docs = this.byId("UploadCollectionEdit");
+        var tableItems = this.byId("TableEditInfo").getItems();
 /*        var docCode = this.byId("EditDocCode");
         var docName = this.byId("EditDocName");        
         var docDate = this.byId("EditDocDate");
@@ -688,6 +691,27 @@ sap.ui.define(
           check = check && this.setValidation(docDate, !docDate.getValue() || docDate.getValue() === '');
           check = check && this.setValidation(docId, !docId.getValue() || docId.getValue() === '');
 */ 
+//Валидация данных MessageItem
+/*          tableItems.forEach(item => {
+            check = check && !item.getCells()[0].getValue() === '';
+            check = check && !item.getCells()[1].getValue() === '';
+            check = check && !item.getCells()[2].getValue() === '';
+            check = check && !item.getCells()[4].getValue() === '';
+          })
+*/
+          var checkItem = true;
+          tableItems.forEach(item => {
+            checkItem = checkItem && this.setValidation(item.getCells()[0], !item.getCells()[0].getValue() || item.getCells()[0].getValue() === '');
+            checkItem = checkItem && this.setValidation(item.getCells()[1], !item.getCells()[1].getValue() || item.getCells()[1].getValue() === '');
+            checkItem = checkItem && this.setValidation(item.getCells()[2], !item.getCells()[2].getValue() || item.getCells()[2].getValue() === '');
+            checkItem = checkItem && this.setValidation(item.getCells()[4], !item.getCells()[4].getValue() || item.getCells()[4].getValue() === '');
+          })
+          if (!checkItem){
+            sap.m.MessageToast.show("Не заполнены обязательные поля в таблице");
+            check = false;  
+          }
+
+
           if (docUrl.getValue() && docs.getItems().length > 0 ) {
             sap.m.MessageToast.show("Необходимо либо прикрепить документ, либо указать ссылку");
           check = false;
@@ -1125,92 +1149,73 @@ sap.ui.define(
       });
     },
 
-    RegExp1: function(str,Symbol) {
-      var lines = str.split('/');
-      result = lines[3] + '-' + lines[1] + '-' + lines[2];
-      return result;
-  },
+    onDownTempPressed: function () {
+
+      var oTemplateModel = new JSONModel({
+        "Data": [
+          {
+            DocID: '',
+            DocCode: '',
+            DocName: '',
+            DocNum: '',
+            DocDate: ''
+          }
+        ]
+      });
+
+      this.setModel(oTemplateModel, "Template");
+
+      var aCols, oBinding, oSettings, oSheet, oTable;
+      var that = this;
+      aCols = this._createColumnConfig();
+      oTable = this.getModel('Template');
+
+      oSettings = {
+        workbook: { columns: aCols },
+        dataSource: oTable.getData().Data,
+        fileName: "Template.xlsx",
+      };
+
+      oSheet = new Spreadsheet(oSettings);
+      oSheet.build()
+        .then(function () {
+          sap.m.MessageToast.show("Шаблон выгружен");
+        }).finally(function () {
+          oSheet.destroy();
+        });
+    },
+
+    _createColumnConfig: function () {
+      return [
+        {
+          label: 'Идентификатор документа в системе',
+          property: 'DocID',
+          scale: 0
+        },
+        {
+          label: 'Вид документа',
+          property: 'DocCode',
+        },
+        {
+          label: 'Наименование документа',
+          property: 'DocName',
+        },
+        {
+          label: 'Номер документа',
+          property: 'DocNum',
+        },
+        {
+          label: 'Дата документа',
+          property: 'DocDate',
+          type: sap.ui.export.EdmType.Date
+        }];
+    },
 
     onUpload: function(oEvent){
-
-//      var tableItems = this.byId('TableEditInfo').getItems();
-
-  //    var oFilerefresh = this.getView().byId("TableEditInfo");
-   //   oFilerefresh.getModel("ItemsData");
-
-/*
-      var oFileUploader = this.getView().byId("FileUploaderId"); 
-      var file = oFileUploader.getFocusDomRef().files[0]; 
-      if (file && window.FileReader) {
-          var reader = new FileReader();
-          reader.onload = function (e) {
-              var data = e.target.result;
-              var excelsheet = XLSX.read(data, {
-                type: 'array'
-              });
-
-
-
-              var woorksheet = excelsheet.Sheets[workbook.SheetNames[0]];
-              var sJSONData = XLSX.utils.sheet_to_json(woorksheet);
-//              excelsheet.SheetNames.forEach(function (sheetName) {
-//                  var oExcelRow = XLSX.utils.sheet_to_row_object_array(excelsheet.Sheets[sheetName]); 
-                  //var sJSONData = JSON.stringify(oExcelRow);
-//                  var sJSONData = XLSX.utils.sheet_to_json(oExcelRow);
-                 // sJSONData = '{"d":{"results":' + sJSONData + '}}';
-
-
-                  var tableData = [];
-                  sJSONData.map((item, index) => {
-                    tableData.push({
-                      DocID: item['Идентификатор документа в системе'],
-                      DocCode: item['Идентификатор документа в системе'],
-                      DocName: item['Наименование документа'],
-                      DocNum: item['Номер документа'],
-                      DocDate: item['Дата документа'],
-                      MessageId: '10000000001'
-                    })
-                  })
-                  var itemModel = {
-                    d: {
-                      results: 
-                        [...tableData]
-                    }
-                  }
-                  var oModelItems = that.getView().getModel('ItemsData');
-                  oModelItems.setData(itemModel);
-
-//                  var TableEditInfo
-//                  sJSONData.replace( "Идентификатор документа в системе", "DocID" );
-              //});
-          };
-          reader.readAsBinaryString(file);
-      }
-
-
-      var oDataModel = this.getView().getModel();
-      var oFileUploader = this.getView().byId("FileUploaderId");
-      var sTokenForUpload = oDataModel.getSecurityToken();
-      
-      oFileUploader.addHeaderParameter(new sap.ui.unified.FileUploaderParameter({
-        name: "SLUG",
-        value: oFileUploader.getValue()
-      }));
-  
-      oFileUploader.addHeaderParameter(new sap.ui.unified.FileUploaderParameter({
-          name: "x-csrf-token",
-          value: sTokenForUpload
-      }));
-
-      oFileUploader.setSendXHR(true);
-      oFileUploader.upload();
-*/
-
-
-var that = this;
-    var file = oEvent.getParameter("files")[0];
-    var reader = new FileReader();
-    reader.onload = function (e) {
+      var that = this;
+      var file = oEvent.getParameter("files")[0];
+      var reader = new FileReader();
+      reader.onload = function (e) {
       var data = new Uint8Array(e.target.result);
       var workbook = XLSX.read(data, {
         type: 'array'
@@ -1224,11 +1229,10 @@ var that = this;
       jsonData.map((item, index) => {
         tableData.push({
           DocID: item['Идентификатор документа в системе'],
-          DocCode: item['Идентификатор документа в системе'],
+          DocCode: item['Вид документа'],
           DocName: item['Наименование документа'],
           DocNum: item['Номер документа'],
           DocDate: formatter.formatXlsxDate(item['Дата документа'].toString()),
-         // DocDate: item['Дата документа'].toString().replaceAll('/','-'),
           MessageId: '10000000001'
         })
       })
@@ -1422,24 +1426,42 @@ var that = this;
       this.byId("EditRejectReasonLbl").setVisible(visible);
     }
 
-    /*
+    var tableItems = this.byId("TableEditInfo").getItems();
+    tableItems.forEach(item => {
+      this.setValidation(item.getCells()[0],false);
+      this.setValidation(item.getCells()[1],false);
+      this.setValidation(item.getCells()[2],false);
+      this.setValidation(item.getCells()[3],false);
+      this.setValidation(item.getCells()[4],false);
+    })
+
     this.getModel("DetailData").setProperty("/d/AisStatus",input.getSelectedKey());
 
-    [ 
-      "EditDocCode",
-      "EditDocName",
-      "EditDocDate",
-      "EditDocId"
-    ].forEach(function(namefield){
-      this.setValidation(this.byId(namefield),false);
+    [
+      "labelId",
+      "labelCode",
+      "labelName",
+      "labelDate"
+    ].forEach(function (namefield) {
+      if (input.getSelectedKey() === '1' || input.getSelectedKey() === '3') {
+        this.byId(namefield).setRequired(true);
+      } else {
+        this.byId(namefield).setRequired(false);
+      }
     }.bind(this))
-    */
   },
 
   onClearField: function(oEvent) {
-    this.getModel("DetailData").setProperty("/d/DocCode",undefined);
-    this.getModel("DetailDocData").setProperty("/d/NameLong",undefined);
-    this.byId("EditDocCode").setValue(undefined);
+//    this.getModel("DetailData").setProperty("/d/DocCode",undefined);
+//    this.getModel("DetailDocData").setProperty("/d/NameLong",undefined);
+//    this.byId("EditDocCode").setValue(undefined);
+
+    var oSelected = this.byId("TableEditInfo").getSelectedItems();
+    if (oSelected) {
+      oSelected.map(item => {
+        item.getCells()[1].setValue('');
+      })
+    }   
   },
 
   handleSearch: function (oEvent) {

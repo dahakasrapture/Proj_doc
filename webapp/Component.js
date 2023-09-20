@@ -40,12 +40,12 @@ sap.ui.define(
         // create the views based on the url/hash
         this.getRouter().initialize();
         
-        this.oAttachmentSignTool = new SignTool('z_tech_appeal/resources1/codesplugin_api', {
+        this.oAttachmentSignTool = new SignTool('z_tech_appeal/resources/codesplugin_api', {
         	cache: true,
         	decoding: 'utf-8'
         });
         
-        this.oDocumentSignTool = new SignTool('z_tech_appeal/resources1/codesplugin_api', {
+        this.oDocumentSignTool = new SignTool('z_tech_appeal/resources/codesplugin_api', {
         	cache: true,
         	decoding: 'windows-1251'
         });
