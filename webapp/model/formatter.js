@@ -74,6 +74,12 @@ sap.ui.define([], function () {
   
         return oDateFormat.format(oDate);
       },
+
+      formatXlsxDate:function (sDate) {
+        sDate = new Date(sDate).getTime();
+        sDate = '/Date(' + sDate + ')/';
+        return sDate;
+      },  
   
       formatDateObject: function (sDate) {
         var oDate;

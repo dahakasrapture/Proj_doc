@@ -21,7 +21,7 @@ sap.ui.define(
       },
 
       _onStartUpload: function (oEv, ithat, inoUploadCollection) {
-        var vCsrfToken = oEv.getParameters()["headers"]["x-csrf-token"];
+//        var vCsrfToken = oEv.getParameters()["headers"]["x-csrf-token"];
         // var oUploadCollection = ithat.byId("UploadCollection");
         var oUploadCollection = inoUploadCollection;
 

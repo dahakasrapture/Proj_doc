@@ -11,7 +11,10 @@ sap.ui.define(
     "sap/m/SearchField",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "sap/ui/core/Fragment"
+    "sap/ui/core/Fragment",
+    "sap/ui/export/Spreadsheet",
+    "z_tech_appeal/controller/Jszip",
+    "z_tech_appeal/controller/Xlsx",
   ],
   function (
     BaseController,
@@ -493,7 +496,7 @@ sap.ui.define(
 
         this._putfragment2info("DetailsEditInfo");
 
-    this.onSelectTypeChange();
+        this.onSelectTypeChange();
 
         this._oValueInput = this.getView().byId("EditDocCode");
 
@@ -668,20 +671,23 @@ sap.ui.define(
     onMsgSave: function(oEvent) {
       if (this.oModelView.oData.d.Msgty === 'R') {
         var ais = this.byId("EditAisStatus");
-        var docCode = this.byId("EditDocCode");
-        var docName = this.byId("EditDocName");
         var reject = this.byId("EditRejectReason");
         var docUrl = this.byId("EditDocUrl");
         var docs = this.byId("UploadCollectionEdit");
+/*        var docCode = this.byId("EditDocCode");
+        var docName = this.byId("EditDocName");        
         var docDate = this.byId("EditDocDate");
         var docId = this.byId("EditDocId");
+*/
         var check = true;
         check = check && this.setValidation(reject, ( ais.getSelectedKey() === '2' || ais.getSelectedKey() === '3' )  && this.byId("EditRejectReason").getValue() === '');
         if ( ais.getSelectedKey() !== '2' ){
+ /*
           check = check && this.setValidation(docCode, !docCode.getCustomData()[0].getValue() || docCode.getCustomData()[0].getValue() === '');
           check = check && this.setValidation(docName, !docName.getValue() || docName.getValue() === '');
           check = check && this.setValidation(docDate, !docDate.getValue() || docDate.getValue() === '');
           check = check && this.setValidation(docId, !docId.getValue() || docId.getValue() === '');
+*/ 
           if (docUrl.getValue() && docs.getItems().length > 0 ) {
             sap.m.MessageToast.show("Необходимо либо прикрепить документ, либо указать ссылку");
           check = false;
@@ -1117,6 +1123,134 @@ sap.ui.define(
           }
         }.bind(this)
       });
+    },
+
+    RegExp1: function(str,Symbol) {
+      var lines = str.split('/');
+      result = lines[3] + '-' + lines[1] + '-' + lines[2];
+      return result;
+  },
+
+    onUpload: function(oEvent){
+
+//      var tableItems = this.byId('TableEditInfo').getItems();
+
+  //    var oFilerefresh = this.getView().byId("TableEditInfo");
+   //   oFilerefresh.getModel("ItemsData");
+
+/*
+      var oFileUploader = this.getView().byId("FileUploaderId"); 
+      var file = oFileUploader.getFocusDomRef().files[0]; 
+      if (file && window.FileReader) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              var data = e.target.result;
+              var excelsheet = XLSX.read(data, {
+                type: 'array'
+              });
+
+
+
+              var woorksheet = excelsheet.Sheets[workbook.SheetNames[0]];
+              var sJSONData = XLSX.utils.sheet_to_json(woorksheet);
+//              excelsheet.SheetNames.forEach(function (sheetName) {
+//                  var oExcelRow = XLSX.utils.sheet_to_row_object_array(excelsheet.Sheets[sheetName]); 
+                  //var sJSONData = JSON.stringify(oExcelRow);
+//                  var sJSONData = XLSX.utils.sheet_to_json(oExcelRow);
+                 // sJSONData = '{"d":{"results":' + sJSONData + '}}';
+
+
+                  var tableData = [];
+                  sJSONData.map((item, index) => {
+                    tableData.push({
+                      DocID: item['Идентификатор документа в системе'],
+                      DocCode: item['Идентификатор документа в системе'],
+                      DocName: item['Наименование документа'],
+                      DocNum: item['Номер документа'],
+                      DocDate: item['Дата документа'],
+                      MessageId: '10000000001'
+                    })
+                  })
+                  var itemModel = {
+                    d: {
+                      results: 
+                        [...tableData]
+                    }
+                  }
+                  var oModelItems = that.getView().getModel('ItemsData');
+                  oModelItems.setData(itemModel);
+
+//                  var TableEditInfo
+//                  sJSONData.replace( "Идентификатор документа в системе", "DocID" );
+              //});
+          };
+          reader.readAsBinaryString(file);
+      }
+
+
+      var oDataModel = this.getView().getModel();
+      var oFileUploader = this.getView().byId("FileUploaderId");
+      var sTokenForUpload = oDataModel.getSecurityToken();
+      
+      oFileUploader.addHeaderParameter(new sap.ui.unified.FileUploaderParameter({
+        name: "SLUG",
+        value: oFileUploader.getValue()
+      }));
+  
+      oFileUploader.addHeaderParameter(new sap.ui.unified.FileUploaderParameter({
+          name: "x-csrf-token",
+          value: sTokenForUpload
+      }));
+
+      oFileUploader.setSendXHR(true);
+      oFileUploader.upload();
+*/
+
+
+var that = this;
+    var file = oEvent.getParameter("files")[0];
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var data = new Uint8Array(e.target.result);
+      var workbook = XLSX.read(data, {
+        type: 'array'
+      });
+      
+      var woorksheet = workbook.Sheets[workbook.SheetNames[0]];
+      var jsonData = XLSX.utils.sheet_to_json(woorksheet);
+      
+
+      var tableData = [];
+      jsonData.map((item, index) => {
+        tableData.push({
+          DocID: item['Идентификатор документа в системе'],
+          DocCode: item['Идентификатор документа в системе'],
+          DocName: item['Наименование документа'],
+          DocNum: item['Номер документа'],
+          DocDate: formatter.formatXlsxDate(item['Дата документа'].toString()),
+         // DocDate: item['Дата документа'].toString().replaceAll('/','-'),
+          MessageId: '10000000001'
+        })
+      })
+      var itemModel = {
+        d: {
+          results: 
+            [...tableData]
+        }
+      }
+      var oModelItems = that.getView().getModel('ItemsData');
+      oModelItems.setData(itemModel);
+      // that.byId("TableEditInfo").getItems().setValue(tableData);
+    };
+    reader.readAsArrayBuffer(file);
+
+    },
+    
+    onUploadComplete: function(oEvent){
+      sap.m.MessageToast.show("File Uploaded");
+      var oFilerefresh = this.getView().byId("TableEditInfo");
+      oFilerefresh.getModel("ItemsData").refresh(true);
+      sap.m.MessageToast.show("File refreshed");
     },
 
     configureValueHelp: function() {

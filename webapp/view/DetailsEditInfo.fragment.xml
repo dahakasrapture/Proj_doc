@@ -197,8 +197,23 @@
                     enabled = "{= ${DetailData>/d/TypeTech} === '62' || ${DetailData>/d/AisStatus} === '2'}"
                     visible="{= ${DetailData>/d/Msgty} === 'R'}">
         </Button>
-        <u:FileUploader id="FileUploaderId" sameFilenameAllowed="true" iconOnly="false" buttonOnly="true" fileType="XLSX,xlsx"
-									icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="onUpload"/>
+        <u:FileUploader 
+            id="FileUploaderId" 
+            buttonOnly="true"
+            buttonText="Загрузить из .xlsx"
+            fileType="XLSX,xlsx"
+            icon="sap-icon://excel-attachment"
+            iconFirst="true"
+            maximumFilenameLength="250"
+            maximumFileSize="2000"
+            style="Emphasized"
+            useMultipart="false"
+            sameFilenameAllowed="true" 
+            iconOnly="false" 
+            uploadOnChange="true"
+            change=".onUpload"
+            uploadComplete=".onUploadComplete"
+            />
 			</OverflowToolbar>
 		</infoToolbar>
     <columns>
