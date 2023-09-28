@@ -192,12 +192,11 @@
         <Button 
                     id="ClearButton1" 
                     text="Очистить 'Вид документа'" 
-                    press="onClearField" 
-                    type="Neutral" 
+                    press="onClearField"  
                     enabled = "{= ${DetailData>/d/TypeTech} === '62' || ${DetailData>/d/AisStatus} === '2'}"
                     visible="{= ${DetailData>/d/Msgty} === 'R'}">
         </Button>
-        <Button text="Выгрузить шаблон" type="Neutral" press="onDownTempPressed" visible="{= ${DetailData>/d/Msgty} === 'R'}"/>
+        <Button text="Выгрузить шаблон" press="onDownTempPressed" visible="{= ${DetailData>/d/Msgty} === 'R'}"/>
         <u:FileUploader 
             id="FileUploaderId" 
             buttonOnly="true"

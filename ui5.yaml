@@ -9,12 +9,8 @@ server:
       configuration:
         ignoreCertError: true
         backend:
-          - path: /sap
-            url: ""
-            destination: S4H
-          - path: /sap/public/zfnsxml
-            destination: S4H
-            url: ""
+          - path: /sap/opu/odata
+            url: "https://s4hananmapd01.ya.loc.yorp.ru:44301"
         ui5:
           path:
             - /resources

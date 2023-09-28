@@ -1,5 +1,5 @@
 /*global history */
-sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/routing/History", "../resources/codesplugin_api"], function(Controller, History) {
+sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/routing/History", "../resources1/codesplugin_api"], function(Controller, History) {
   "use strict";
   return Controller.extend("z_tech_appeal.controller.BaseController", {
 

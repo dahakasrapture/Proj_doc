@@ -595,6 +595,7 @@ sap.ui.define(
         );
         that._RefreshModeTmp = ObjMeta.RefreshMode;
       
+        if (typeR){
         var tableItems = this.byId('TableEditInfo').getItems();
         var itemTable = [];
         if (tableItems.length > 0) {
@@ -623,7 +624,7 @@ sap.ui.define(
             var msg;
           }
         ); 
-
+      }
 
 
 
